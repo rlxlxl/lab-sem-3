@@ -13,21 +13,17 @@ struct Stack {
 template<typename T>
 Stack<T> create_stack() {
     Stack<T> new_stack;
+    new_stack.data = nullptr;
+    new_stack.top_index = 0;
+    new_stack.capacity = 0;
     return new_stack;
 }
 
 template<typename T>
 void resize_stack(Stack<T>& stack) {
-    int new_capacity = stack.capacity;
-    if (new_capacity == 0) {
-        new_capacity = (stack.capacity + 1) * 2;
-    } else {
-        new_capacity = stack.capacity * 2;
-    }
+    int new_capacity = (stack.capacity == 0) ? 4 : stack.capacity * 2;
     T* new_data = new T[new_capacity]();
-    for (int i = 0; i < stack.top_index; i++) {
-        new_data[i] = stack.data[i];
-    }
+    for (int i = 0; i < stack.top_index; i++) new_data[i] = stack.data[i];
     delete[] stack.data;
     stack.data = new_data;
     stack.capacity = new_capacity;
@@ -35,31 +31,23 @@ void resize_stack(Stack<T>& stack) {
 
 template<typename T>
 void push_stack(Stack<T>& stack, T new_element) {
-    if (stack.top_index >= stack.capacity) {
-        resize_stack(stack);
-    }
+    if (stack.top_index >= stack.capacity) resize_stack(stack);
     stack.data[stack.top_index] = new_element;
     stack.top_index++;
 }
 
 template<typename T>
-void pop_stack(Stack<T>& stack) {
+T pop_stack(Stack<T>& stack) {
     if (stack.top_index == 0) {
-        cerr << "Ошибка: список пуст" << endl;
-        return;
+        cerr << "Ошибка: стек пуст" << endl;
+        return T();
     }
     stack.top_index--;
+    return stack.data[stack.top_index];
 }
 
 template<typename T>
 void print_stack(Stack<T>& stack) {
-    if (stack.top_index == 0) {
-        cout << "Список пуст" << endl;
-        return;
-    }
-    cout << "Список элементов: ";
-    for (int i = 0; i <= stack.top_index - 1; i++) {
-        cout << stack.data[i] << ", ";
-    }
+    for (int i = 0; i < stack.top_index; i++) cout << stack.data[i] << " ";
     cout << endl;
 }
