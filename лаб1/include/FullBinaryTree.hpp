@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
+#include <queue>
+#include <string>
 using namespace std;
 
-// Узел полного бинарного дерева
 template<typename T>
 struct NodeFBT {
     T data;
@@ -10,13 +11,11 @@ struct NodeFBT {
     NodeFBT* right;
 };
 
-// Само дерево
 template<typename T>
 struct FullBinaryTree {
     NodeFBT<T>* root;
 };
 
-// Создание пустого дерева
 template<typename T>
 FullBinaryTree<T> create_fbt() {
     FullBinaryTree<T> tree;
@@ -24,166 +23,75 @@ FullBinaryTree<T> create_fbt() {
     return tree;
 }
 
-// ------------------- ОЧЕРЕДЬ (вручную) -------------------
 template<typename T>
-struct NodeQueue {
-    NodeFBT<T>** data;
-    int front;
-    int rear;
-    int size;
-    int capacity;
-};
-
-template<typename T>
-NodeQueue<T> create_queue_fbt(int cap = 64) {
-    NodeQueue<T> q;
-    q.data = new NodeFBT<T>*[cap];
-    q.front = q.rear = q.size = 0;
-    q.capacity = cap;
-    return q;
-}
-
-template<typename T>
-bool is_empty_queue(NodeQueue<T>& q) {
-    return q.size == 0;
-}
-
-template<typename T>
-void push_queue_fbt(NodeQueue<T>& q, NodeFBT<T>* node) {
-    if (q.size == q.capacity) return;
-    q.data[q.rear] = node;
-    q.rear = (q.rear + 1) % q.capacity;
-    q.size++;
-}
-
-template<typename T>
-NodeFBT<T>* pop_queue_fbt(NodeQueue<T>& q) {
-    if (is_empty_queue(q)) return nullptr;
-    NodeFBT<T>* node = q.data[q.front];
-    q.front = (q.front + 1) % q.capacity;
-    q.size--;
+NodeFBT<T>* create_node_fbt(const T& value) {
+    NodeFBT<T>* node = new NodeFBT<T>;
+    node->data = value;
+    node->left = node->right = nullptr;
     return node;
 }
 
 template<typename T>
-void destroy_queue_fbt(NodeQueue<T>& q) {
-    delete[] q.data;
-    q.data = nullptr;
-    q.front = q.rear = q.size = q.capacity = 0;
-}
-
-// ------------------- ДОБАВЛЕНИЕ -------------------
-template<typename T>
 void add_element_fbt(FullBinaryTree<T>& tree, const T& value) {
-    NodeFBT<T>* new_node = new NodeFBT<T>;
-    new_node->data = value;
-    new_node->left = nullptr;
-    new_node->right = nullptr;
-
-    if (tree.root == nullptr) {
-        tree.root = new_node;
+    NodeFBT<T>* newNode = create_node_fbt(value);
+    if (!tree.root) {
+        tree.root = newNode;
         return;
     }
-
-    NodeQueue<T> q = create_queue_fbt<T>(128);
-    push_queue_fbt(q, tree.root);
-
-    while (!is_empty_queue(q)) {
-        NodeFBT<T>* cur = pop_queue_fbt(q);
-        if (cur->left == nullptr) {
-            cur->left = new_node;
-            destroy_queue_fbt(q);
-            return;
-        } else if (cur->right == nullptr) {
-            cur->right = new_node;
-            destroy_queue_fbt(q);
-            return;
-        } else {
-            push_queue_fbt(q, cur->left);
-            push_queue_fbt(q, cur->right);
-        }
+    queue<NodeFBT<T>*> q;
+    q.push(tree.root);
+    while (!q.empty()) {
+        NodeFBT<T>* cur = q.front(); q.pop();
+        if (!cur->left) { cur->left = newNode; return; } else q.push(cur->left);
+        if (!cur->right) { cur->right = newNode; return; } else q.push(cur->right);
     }
-
-    destroy_queue_fbt(q);
-}
-
-// ------------------- ПОИСК -------------------
-template<typename T>
-NodeFBT<T>* find_element_fbt(NodeFBT<T>* root, const T& value) {
-    if (root == nullptr) return nullptr;
-    if (root->data == value) return root;
-    NodeFBT<T>* left = find_element_fbt(root->left, value);
-    if (left != nullptr) return left;
-    return find_element_fbt(root->right, value);
 }
 
 template<typename T>
-NodeFBT<T>* find_element_fbt(FullBinaryTree<T>& tree, const T& value) {
-    return find_element_fbt(tree.root, value);
-}
+bool is_full_fbt(const FullBinaryTree<T>& tree) {
+    if (!tree.root) return true;
+    queue<NodeFBT<T>*> q;
+    q.push(tree.root);
+    bool shouldHaveNoChild = false;
+    while (!q.empty()) {
+        NodeFBT<T>* cur = q.front(); q.pop();
+        if (cur->left) {
+            if (shouldHaveNoChild) return false;
+            q.push(cur->left);
+        } else shouldHaveNoChild = true;
 
-// ------------------- ПРОВЕРКА FULL -------------------
-template<typename T>
-bool is_full_fbt(NodeFBT<T>* root) {
-    if (root == nullptr) return true;
-    if ((root->left == nullptr && root->right != nullptr) ||
-        (root->left != nullptr && root->right == nullptr))
-        return false;
-    return is_full_fbt(root->left) && is_full_fbt(root->right);
-}
-
-template<typename T>
-bool is_full_fbt(FullBinaryTree<T>& tree) {
-    return is_full_fbt(tree.root);
-}
-
-// ------------------- ПРОВЕРКА COMPLETE -------------------
-template<typename T>
-bool is_complete_fbt(FullBinaryTree<T>& tree) {
-    if (tree.root == nullptr) return true;
-
-    NodeQueue<T> q = create_queue_fbt<T>(128);
-    push_queue_fbt(q, tree.root);
-
-    bool foundNull = false;
-
-    while (!is_empty_queue(q)) {
-        NodeFBT<T>* cur = pop_queue_fbt(q);
-        if (cur->left != nullptr) {
-            if (foundNull) {
-                destroy_queue_fbt(q);
-                return false; // после null не должно быть потомков
-            }
-            push_queue_fbt(q, cur->left);
-        } else {
-            foundNull = true;
-        }
-
-        if (cur->right != nullptr) {
-            if (foundNull) {destroy_queue_fbt(q);
-                return false;
-            }
-            push_queue_fbt(q, cur->right);
-        } else {
-            foundNull = true;
-        }
+        if (cur->right) {
+            if (shouldHaveNoChild) return false;
+            q.push(cur->right);
+        } else shouldHaveNoChild = true;
     }
-
-    destroy_queue_fbt(q);
     return true;
 }
 
-// ------------------- ОБХОД (ЧТЕНИЕ) -------------------
 template<typename T>
-void read_fbt(NodeFBT<T>* root) {
-    if (root == nullptr) return;
-    read_fbt(root->left);
-    cout << root->data << " ";
-    read_fbt(root->right);
+bool find_element_fbt(NodeFBT<T>* root, const T& value) {
+    if (!root) return false;
+    queue<NodeFBT<T>*> q;
+    q.push(root);
+    while (!q.empty()) {
+        NodeFBT<T>* cur = q.front(); q.pop();
+        if (cur->data == value) return true;
+        if (cur->left) q.push(cur->left);
+        if (cur->right) q.push(cur->right);
+    }
+    return false;
 }
 
 template<typename T>
-void read_fbt(FullBinaryTree<T>& tree) {
-    read_fbt(tree.root);
-    cout << endl;
+void print_fbt(NodeFBT<T>* root) {
+    if (!root) return;
+    queue<NodeFBT<T>*> q;
+    q.push(root);
+    while (!q.empty()) {
+        NodeFBT<T>* cur = q.front(); q.pop();
+        cout << cur->data << " ";
+        if (cur->left) q.push(cur->left);
+        if (cur->right) q.push(cur->right);
+    }
+    cout << "\n";
 }

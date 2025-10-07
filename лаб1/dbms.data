@@ -1,2 +1,3 @@
 M mystack 2020 20 20
-T t1 20
+Q queue 2 3
+T t1 20 20 20 30 40
