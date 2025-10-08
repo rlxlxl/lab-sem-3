@@ -1,0 +1,6 @@
+S T1 123
+Q test 123
+S T5 
+T test2 1 2 3 #  #  5 #  #  4 #  # 
+S 1 2 3
+Q test1 
