@@ -1,8 +1,5 @@
-#include "Queue.hpp"
-#include "Stack.hpp"
+
 #include "Array.hpp"
-#include "DoublyList.hpp"
-#include "ForwardList.hpp"
 #include "SystemWork.hpp"
 #include "CommandParser.hpp"
 #include <cstring>

@@ -59,16 +59,35 @@ void add_element_fbt(FullBinaryTree<T>& tree, const T& value) {
 template<typename T>
 bool is_full_fbt(const FullBinaryTree<T>& tree) {
     if (!tree.root) return true;
+
     Queue<NodeFBT<T>*> q = create_queue<NodeFBT<T>*>();
     push_queue(q, tree.root);
+    bool mustBeLeaf = false; // флаг: после первого неполного узла все должны быть листьями
+
     while (q.size > 0) {
         NodeFBT<T>* cur = pop_queue(q);
-        if ((cur->left && !cur->right) || (!cur->left && cur->right)) {
-            return false;
+
+        if (mustBeLeaf) {
+            // Если мы должны встретить только листья, а текущий узел имеет детей
+            if (cur->left || cur->right) return false;
         }
-        if (cur->left) push_queue(q, cur->left);
-        if (cur->right) push_queue(q, cur->right);
+
+        if (cur->left && cur->right) {
+            // Оба ребенка есть, добавляем их в очередь
+            push_queue(q, cur->left);
+            push_queue(q, cur->right);
+        } else if (cur->left && !cur->right) {
+            // Только левый ребенок — дерево не полное
+            return false;
+        } else if (!cur->left && cur->right) {
+            // Только правый ребенок — дерево не полное
+            return false;
+        } else {
+            // Узел без детей — все последующие должны быть листьями
+            mustBeLeaf = true;
+        }
     }
+
     return true;
 }
 
