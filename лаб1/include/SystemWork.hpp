@@ -1,11 +1,11 @@
 #pragma once
-#include "Queue.hpp"
 #include "Stack.hpp"
 #include "Array.hpp"
 #include "DoublyList.hpp"
 #include "ForwardList.hpp"
 #include "FullBinaryTree.hpp"
 #include "Globals.cpp"
+#include "Queue.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -148,22 +148,23 @@ void save_db(const string& path) {
     }
 
     // Деревья (FullBinaryTree)
-    for (int i=0; i<names_T.max_index; ++i) {
-        if (!names_T.is_set[i]) continue;
-        out << "T " << names_T.data[i];
-        FullBinaryTree<string>* tree = data_T.data[i];
-        if (!tree->root) { out << "\n"; continue; }
-        // BFS обход для сохранения
-        queue<NodeFBT<string>*> q;
-        q.push(tree->root);
-        while(!q.empty()) {
-            NodeFBT<string>* cur = q.front(); q.pop();
-            out << " " << cur->data;
-            if(cur->left) q.push(cur->left);
-            if(cur->right) q.push(cur->right);
-        }
-        out << "\n";
+
+    for (int i = 0; i < names_T.max_index; ++i) {
+    if (!names_T.is_set[i]) continue;
+    out << "T " << names_T.data[i];
+    FullBinaryTree<string>* tree = data_T.data[i];
+    if (!tree->root) { out << "\n"; continue; }
+    // BFS обход с пользовательской очередью
+    Queue<NodeFBT<string>*> q = create_queue<NodeFBT<string>*>();
+    push_queue(q, tree->root);
+    while (q.size > 0) {
+        NodeFBT<string>* cur = pop_queue(q);
+        out << " " << cur->data;
+        if (cur->left) push_queue(q, cur->left);
+        if (cur->right) push_queue(q, cur->right);
     }
+    out << "\n";
+}
 
     out.close();
     remove(path.c_str());
