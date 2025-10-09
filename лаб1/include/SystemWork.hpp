@@ -29,7 +29,7 @@ extern Array<string> names_S;
 extern Array<Stack<string>*> data_S;
 
 extern Array<string> names_T;
-extern Array<FullBinaryTree*> data_T;  // Изменено: теперь хранит FullBinaryTree*, а не FullBinaryTree<string>*
+extern Array<FullBinaryTree*> data_T;
 
 extern string g_file_path;
 
@@ -78,18 +78,17 @@ void load_db(const string& path) {
             for (int i=2; i<toks.max_index; ++i) push_queue(*q, toks.data[i]);
             add_named_container(names_Q, data_Q, name, q);
         } else if (type == "S") {
+            // ИЗМЕНЕНО: создаем стек с новой реализацией
             Stack<string>* s = new Stack<string>(create_stack<string>());
             for (int i=2; i<toks.max_index; ++i) push_stack(*s, toks.data[i]);
             add_named_container(names_S, data_S, name, s);
         } else if (type == "T") {
-            // Изменено: создаем FullBinaryTree (не шаблонную) и добавляем int значения
             FullBinaryTree* tree = new FullBinaryTree(create_fbt());
             for (int i=2; i<toks.max_index; ++i) {
                 try {
-                    int value = stoi(toks.data[i]);  // Преобразуем string в int
+                    int value = stoi(toks.data[i]);
                     add_element_fbt(*tree, value);
                 } catch (...) {
-                    // Пропускаем некорректные значения
                     continue;
                 }
             }
@@ -146,16 +145,21 @@ void save_db(const string& path) {
         out << "\n";
     }
 
-    // Стеки
+    // Стеки - ИЗМЕНЕНО для новой реализации
     for (int i=0; i<names_S.max_index; ++i) {
         if (!names_S.is_set[i]) continue;
         out << "S " << names_S.data[i];
         Stack<string>* s = data_S.data[i];
-        for (int k=0; k<s->top_index; ++k) out << " " << s->data[k];
+        // Обход связного списка стека
+        StackNode<string>* current = s->top;
+        while (current != nullptr) {
+            out << " " << current->data;
+            current = current->next;
+        }
         out << "\n";
     }
 
-    // Деревья (FullBinaryTree) - изменено для работы с int
+    // Деревья (FullBinaryTree)
     for (int i = 0; i < names_T.max_index; ++i) {
         if (!names_T.is_set[i]) continue;
         out << "T " << names_T.data[i];
@@ -163,11 +167,11 @@ void save_db(const string& path) {
         if (!tree->root) { out << "\n"; continue; }
         
         // BFS обход с пользовательской очередью
-        Queue<NodeFBT*> q = create_queue<NodeFBT*>();  // Изменено: NodeFBT* вместо NodeFBT<string>*
+        Queue<NodeFBT*> q = create_queue<NodeFBT*>();
         push_queue(q, tree->root);
         while (q.size > 0) {
-            NodeFBT* cur = pop_queue(q);  // Изменено: NodeFBT* вместо NodeFBT<string>*
-            out << " " << cur->data;      // data теперь int, но автоматически преобразуется в string
+            NodeFBT* cur = pop_queue(q);
+            out << " " << cur->data;
             if (cur->left) push_queue(q, cur->left);
             if (cur->right) push_queue(q, cur->right);
         }

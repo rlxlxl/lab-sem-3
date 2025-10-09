@@ -13,7 +13,6 @@ using namespace std;
 void cmd_Mpush(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "MPUSH требует имя и значение\n"; return; }
     string name = toks.data[1];
-    // build value from tokens[2..]
     string value = toks.data[2];
     for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
 
@@ -110,7 +109,7 @@ void cmd_Fdel(const Array<string>& toks) {
     if (cur == nullptr || cur->next == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
     Node_Fl<string>* todel = cur->next;
     cur->next = todel->next;
-    delete todel->data;
+        delete todel->data;
     delete todel;
     cout << "OK\n";
     save_db(g_file_path);
@@ -212,7 +211,7 @@ void cmd_Qget(const Array<string>& toks) {
     cout << q->data[at] << "\n";
 }
 
-// SPUSH / SPOP / SGET
+// SPUSH / SPOP / SGET - ПЕРЕРАБОТАНО ДЛЯ НОВОЙ РЕАЛИЗАЦИИ СТЕКА
 void cmd_Spush(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "SPUSH требует имя и значение\n"; return; }
     string name = toks.data[1];
@@ -242,7 +241,7 @@ void cmd_Spop(const Array<string>& toks) {
     }
 
     Stack<string>* s = data_S.data[idx];
-    if (s->top_index == 0) { 
+    if (s->top == nullptr) {  // ИЗМЕНЕНО: проверка на nullptr вместо top_index
         cout << "-> (stack empty)\n"; 
         return; 
     }
@@ -251,6 +250,7 @@ void cmd_Spop(const Array<string>& toks) {
     cout << "-> " << v << "\n";
     save_db(g_file_path);
 }
+
 void cmd_Sget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "SGET требует имя и индекс\n"; return; }
     string name = toks.data[1];
@@ -259,9 +259,29 @@ void cmd_Sget(const Array<string>& toks) {
     int idx = find_name_index(names_S, name);
     if (idx == -1) { cerr << "Стек не найден\n"; return; }
     Stack<string>* s = data_S.data[idx];
-    if (s->top_index < id) { cerr << "Индекс вне диапазона\n"; return; }
-    // определяем: индекс 1 == первый элемент (нижний). Чтобы вернуть по такому порядку:
-    cout << s->data[id-1] << "\n";
+    
+    // ИЗМЕНЕНО: обход связного списка для получения элемента по индексу
+    if (s->top == nullptr) {
+        cerr << "Стек пуст\n";
+        return;
+    }
+    
+    // Индекс 1 = верхний элемент стека
+    StackNode<string>* current = s->top;
+    int pos = 1;
+    
+    // Переходим к нужному элементу (индексы считаются от вершины)
+    while (current != nullptr && pos < id) {
+        current = current->next;
+        pos++;
+    }
+    
+    if (current == nullptr) {
+        cerr << "Индекс вне диапазона\n";
+        return;
+    }
+    
+    cout << current->data << "\n";
 }
 
 // === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ===
@@ -291,7 +311,7 @@ void cmd_Tinsert(const Array<string>& toks) {
     // Обрабатываем все значения начиная с индекса 2
     for (int i = 2; i < toks.max_index; ++i) {
         try {
-            int value = stoi(toks.data[i]);  // Преобразуем каждое значение в int
+            int value = stoi(toks.data[i]);
             add_element_fbt(*tree, value);
         } catch (...) {
             cerr << "Ошибка: значение '" << toks.data[i] << "' должно быть целым числом\n";
@@ -341,7 +361,7 @@ void cmd_Tismember(const Array<string>& toks) {
     FullBinaryTree* tree = data_T.data[idx];
     
     try {
-        int value = stoi(value_str);  // Преобразуем string в int
+        int value = stoi(value_str);
         cout << (find_element_fbt(tree->root, value) ? "1\n" : "0\n");
     } catch (...) {
         cerr << "Ошибка: значение должно быть целым числом\n";
@@ -366,7 +386,6 @@ void cmd_Tpretty(const Array<string>& toks) {
     
     cout << "=== Красивый вывод ===\n";
     print_tree_pretty(tree->root);
-    
 }
 
 void cmd_PRINT(const Array<string>& toks) {
@@ -421,12 +440,14 @@ void cmd_PRINT(const Array<string>& toks) {
         return;
     }
 
-    // стек
+    // стек - ИЗМЕНЕНО для новой реализации
     idx = find_name_index(names_S, name);
     if (idx != -1) {
         Stack<string>* s = data_S.data[idx];
-        for (int i = 0; i < s->top_index; i++) {
-            cout << s->data[i] << " ";
+        StackNode<string>* current = s->top;
+        while (current != nullptr) {
+            cout << current->data << " ";  // ИЗМЕНЕНО: прямой доступ к data
+            current = current->next;
         }
         cout << "\n";
         return;
@@ -434,4 +455,3 @@ void cmd_PRINT(const Array<string>& toks) {
 
     cerr << "Контейнер с именем " << name << " не найден\n";
 }
-

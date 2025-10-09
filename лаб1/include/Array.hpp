@@ -3,13 +3,13 @@
 #include <iostream>
 using namespace std;
 
-// Шаблонная структура для массива
+
 template<typename T>
 struct Array {
-    T* data = nullptr;          // Динамический массив значений
-    bool* is_set = nullptr;    // Флаги для отслеживания установленных элементов
-    int capacity = 0;          // Текущая вместимость массива
-    int max_index = 0;         // Максимальный индекс, где есть установленный элемент
+    T* data = nullptr;         
+    bool* is_set = nullptr;    
+    int capacity = 0;          
+    int max_index = 0;         
     ~Array() {
         delete[] data;
         delete[] is_set;
@@ -28,37 +28,30 @@ Array<T> create_array_ar(int new_capacity) {
     return new_arr;
 }
 
-// Вспомогательная функция для расширения массива
 template<typename T>
 void resize_array_ar(Array<T>& arr, int new_capacity) {
-    // Устанавливаем новую вместимость (не меньше текущей)
     if (new_capacity < arr.capacity) {
         new_capacity = arr.capacity;
     }
-    T* new_data = new T[new_capacity]();      // Новый массив с инициализацией
-    bool* new_is_set = new bool[new_capacity](); // Новый массив флагов
+    T* new_data = new T[new_capacity]();      
+    bool* new_is_set = new bool[new_capacity]();
 
-    // Копируем существующие данные
     for (int i = 0; i < arr.max_index; i++) {
         new_data[i] = arr.data[i];
         new_is_set[i] = arr.is_set[i];
     }
 
-    // Освобождаем старую память
     delete[] arr.data;
     delete[] arr.is_set;
 
-    // Обновляем поля
     arr.data = new_data;
     arr.is_set = new_is_set;
     arr.capacity = new_capacity;
 }
 
-// Добавление элемента в конец массива
 template<typename T>
 void add_element_end_ar(Array<T>& arr, T new_element) {
     if (arr.max_index >= arr.capacity) {
-        // Расширяем массив, удваивая вместимость или устанавливая минимальную
         int new_capacity = (arr.capacity == 0) ? 4 : arr.capacity * 2;
         resize_array_ar(arr, new_capacity);
     }
@@ -67,27 +60,23 @@ void add_element_end_ar(Array<T>& arr, T new_element) {
     arr.max_index++;
 }
 
-// Добавление элемента по индексу (1-based)
 template<typename T>
 void add_element_index_ar(Array<T>& arr, int index, T new_element) {
     if (index < 1) {
         cerr << "Неправильное значение индекса" << endl;
         return;
     }
-    // Проверяем, нужен ли resize
     if (index > arr.capacity) {
-        // Устанавливаем новую вместимость как max(index, capacity * 2)
         int new_capacity = (arr.capacity == 0) ? index : max(index, arr.capacity * 2);
         resize_array_ar(arr, new_capacity);
     }
     arr.data[index - 1] = new_element;
     arr.is_set[index - 1] = true;
     if (index > arr.max_index) {
-        arr.max_index = index; // Обновляем max_index
+        arr.max_index = index; 
     }
 }
 
-// Удаление элемента по индексу (1-based)
 template<typename T>
 void delete_element_index_ar(Array<T>& arr, int index) {
     if (index < 1 || index > arr.max_index) {
@@ -99,8 +88,7 @@ void delete_element_index_ar(Array<T>& arr, int index) {
         return;
     }
     arr.is_set[index - 1] = false;
-    arr.data[index - 1] = T(); // Сбрасываем значение
-    // Обновляем max_index, если удалили последний элемент
+    arr.data[index - 1] = T();
     if (index == arr.max_index) {
         while (arr.max_index > 0 && !arr.is_set[arr.max_index - 1]) {
             arr.max_index--;
