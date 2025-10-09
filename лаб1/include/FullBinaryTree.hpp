@@ -105,3 +105,72 @@ void print_fbt(NodeFBT* root) {
     }
     cout << "\n";
 }
+
+struct PrintLine {
+    string line;
+    PrintLine* next;
+};
+
+// Рекурсивная функция для построения строк вывода
+PrintLine* build_tree_lines(NodeFBT* node, bool isLeft, string prefix) {
+    if (!node) return nullptr;
+
+    // Создаем строку для текущего узла
+    PrintLine* current = new PrintLine;
+    current->line = prefix + (isLeft ? "├── " : "└── ") + to_string(node->data);
+    current->next = nullptr;
+
+    // Рекурсивно обрабатываем потомков
+    string newPrefix = prefix + (isLeft ? "│   " : "    ");
+    
+    PrintLine* last = current;
+    
+    if (node->left && node->right) {
+        // Есть оба потомка
+        PrintLine* leftLines = build_tree_lines(node->left, true, newPrefix);
+        PrintLine* rightLines = build_tree_lines(node->right, false, newPrefix);
+        
+        if (leftLines) {
+            last->next = leftLines;
+            while (last->next) last = last->next;
+        }
+        if (rightLines) {
+            last->next = rightLines;
+        }
+    } else if (node->left) {
+        // Только левый потомок
+        PrintLine* leftLines = build_tree_lines(node->left, false, newPrefix);
+        if (leftLines) {
+            last->next = leftLines;
+        }
+    } else if (node->right) {
+        // Только правый потомок
+        PrintLine* rightLines = build_tree_lines(node->right, false, newPrefix);
+        if (rightLines) {
+            last->next = rightLines;
+        }
+    }
+
+    return current;
+}
+
+// Функция для красивого вывода дерева (вертикальный вывод)
+void print_tree_pretty(NodeFBT* root) {
+    if (!root) {
+        cout << "Дерево пустое\n";
+        return;
+    }
+
+    // Получаем строки для вывода
+    PrintLine* lines = build_tree_lines(root, false, "");
+    
+    // Выводим результат и освобождаем память
+    PrintLine* current = lines;
+    while (current) {
+        cout << current->line << "\n";
+        PrintLine* temp = current;
+        current = current->next;
+        delete temp;
+    }
+}
+

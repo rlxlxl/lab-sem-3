@@ -348,6 +348,27 @@ void cmd_Tismember(const Array<string>& toks) {
     }
 }
 
+void cmd_Tpretty(const Array<string>& toks) {
+    if (toks.max_index < 2) { 
+        cerr << "TPRETTY требует имя\n"; 
+        return; 
+    }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_T, name);
+    if (idx == -1) { 
+        cerr << "Дерево не найдено\n"; 
+        return; 
+    }
+
+    FullBinaryTree* tree = data_T.data[idx];
+    cout << "Дерево '" << name << "':\n";
+    
+    cout << "=== Красивый вывод ===\n";
+    print_tree_pretty(tree->root);
+    
+}
+
 void cmd_PRINT(const Array<string>& toks) {
     if (toks.max_index < 2) { 
         cerr << "PRINT требует имя\n"; 

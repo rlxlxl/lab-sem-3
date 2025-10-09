@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
         LPUSH, LGET, LDEL,
         QPUSH, QPOP, QGET,
         SPUSH, SPOP, SGET,
-        TINSERT, TFULL, TGET,
+        TINSERT, TFULL, TGET, TPRETTY,
         PRINT, UNKNOWN
 
     };
@@ -76,6 +76,7 @@ int main(int argc, char* argv[]) {
         if (cmd == "TFULL")  return CommandType::TFULL;
         if (cmd == "TGET")  return CommandType::TGET;
         if (cmd == "PRINT")  return CommandType::PRINT;
+        if (cmd == "TPRETTY") return CommandType::TPRETTY;
         return CommandType::UNKNOWN;
     };
 
@@ -99,6 +100,7 @@ int main(int argc, char* argv[]) {
         case CommandType::TINSERT: cmd_Tinsert(toks); break;
         case CommandType::TFULL:  cmd_Tfull(toks);  break;
         case CommandType::TGET:  cmd_Tget(toks);  break;
+        case CommandType::TPRETTY:  cmd_Tpretty(toks);  break;
         case CommandType::PRINT:  cmd_PRINT(toks);  break;
         default:
             cerr << "Неизвестная команда: " << toks.data[0] << "\n";
