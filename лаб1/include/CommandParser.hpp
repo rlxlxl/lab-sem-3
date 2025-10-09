@@ -31,24 +31,25 @@ void cmd_Mget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "MGET требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_M, name);
     if (idx == -1) { cerr << "Массив не найден\n"; return; }
     Array<string>* arr = data_M.data[idx];
-    if (arr->max_index < id || !arr->is_set[id-1]) { cerr << "Индекс вне диапазона\n"; return; }
-    cout << arr->data[id-1] << "\n";
+    if (arr->max_index <= id || !arr->is_set[id]) { cerr << "Индекс вне диапазона\n"; return; } // Изменено: id вместо id-1
+    cout << arr->data[id] << "\n"; // Изменено: id вместо id-1
 }
 
+// MDEL - индексация с 0
 void cmd_Mdel(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "MDEL требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_M, name);
     if (idx == -1) { cerr << "Массив не найден\n"; return; }
     Array<string>* arr = data_M.data[idx];
-    if (arr->max_index < id || !arr->is_set[id-1]) { cerr << "Индекс вне диапазона\n"; return; }
-    delete_element_index_ar<string>(*arr, id);
+    if (arr->max_index <= id || !arr->is_set[id]) { cerr << "Индекс вне диапазона\n"; return; } // Изменено: id вместо id-1
+    delete_element_index_ar<string>(*arr, id + 1); // Изменено: +1 т.к. функция ожидает 1-based
     cout << "OK\n";
     save_db(g_file_path);
 }
@@ -74,27 +75,28 @@ void cmd_Fget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "FGET требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_F, name);
     if (idx == -1) { cerr << "Список не найден\n"; return; }
     ForwardList<string>* fl = data_F.data[idx];
     Node_Fl<string>* cur = fl->head;
-    int pos = 1;
+    int pos = 0; // Изменено: 0 вместо 1
     while (cur != nullptr && pos < id) { cur = cur->next; ++pos; }
     if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
     cout << *(cur->data) << "\n";
 }
 
+// FDEL - индексация с 0
 void cmd_Fdel(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "FDEL требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_F, name);
     if (idx == -1) { cerr << "Список не найден\n"; return; }
     ForwardList<string>* fl = data_F.data[idx];
     if (fl->head == nullptr) { cerr << "Список пуст\n"; return; }
-    if (id == 1) {
+    if (id == 0) { // Изменено: 0 вместо 1
         Node_Fl<string>* todel = fl->head;
         fl->head = todel->next;
         delete todel->data;
@@ -104,17 +106,16 @@ void cmd_Fdel(const Array<string>& toks) {
         return;
     }
     Node_Fl<string>* cur = fl->head;
-    int pos = 1;
-    while (cur != nullptr && pos < id-1) { cur = cur->next; ++pos; }
+    int pos = 0; // Изменено: 0 вместо 1
+    while (cur != nullptr && pos < id - 1) { cur = cur->next; ++pos; } // Изменено: id-1 вместо id-2
     if (cur == nullptr || cur->next == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
     Node_Fl<string>* todel = cur->next;
     cur->next = todel->next;
-        delete todel->data;
+    delete todel->data;
     delete todel;
     cout << "OK\n";
     save_db(g_file_path);
 }
-
 // LPUSH (back)
 void cmd_Lpush(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "LPUSH требует имя и значение\n"; return; }
@@ -136,28 +137,29 @@ void cmd_Lget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "LGET требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_L, name);
     if (idx == -1) { cerr << "Список не найден\n"; return; }
     DoublyList<string>* dl = data_L.data[idx];
     Node_Dl<string>* cur = dl->head;
-    int pos = 1;
+    int pos = 0; // Изменено: 0 вместо 1
     while (cur != nullptr && pos < id) { cur = cur->next; ++pos; }
     if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
     cout << *(cur->data) << "\n";
 }
 
+// LDEL - индексация с 0
 void cmd_Ldel(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "LDEL требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_L, name);
     if (idx == -1) { cerr << "Список не найден\n"; return; }
     DoublyList<string>* dl = data_L.data[idx];
     if (dl->head == nullptr) { cerr << "Список пуст\n"; return; }
     Node_Dl<string>* cur = dl->head;
-    int pos = 1;
+    int pos = 0; // Изменено: 0 вместо 1
     while (cur != nullptr && pos < id) { cur = cur->next; ++pos; }
     if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
     // unlink
@@ -202,12 +204,12 @@ void cmd_Qget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "QGET требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_Q, name);
     if (idx == -1) { cerr << "Очередь не найдена\n"; return; }
     Queue<string>* q = data_Q.data[idx];
-    if (q->size < id) { cerr << "Индекс вне диапазона\n"; return; }
-    int at = (q->front + (id - 1)) % q->capacity;
+    if (q->size <= id) { cerr << "Индекс вне диапазона\n"; return; } // Изменено: <= вместо <
+    int at = (q->front + id) % q->capacity; // Изменено: id вместо id-1
     cout << q->data[at] << "\n";
 }
 
@@ -255,20 +257,19 @@ void cmd_Sget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "SGET требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 1) { cerr << "Неправильный индекс\n"; return; }
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
     int idx = find_name_index(names_S, name);
     if (idx == -1) { cerr << "Стек не найден\n"; return; }
     Stack<string>* s = data_S.data[idx];
     
-    // ИЗМЕНЕНО: обход связного списка для получения элемента по индексу
     if (s->top == nullptr) {
         cerr << "Стек пуст\n";
         return;
     }
     
-    // Индекс 1 = верхний элемент стека
+    // Индекс 0 = верхний элемент стека
     StackNode<string>* current = s->top;
-    int pos = 1;
+    int pos = 0; // Изменено: 0 вместо 1
     
     // Переходим к нужному элементу (индексы считаются от вершины)
     while (current != nullptr && pos < id) {
