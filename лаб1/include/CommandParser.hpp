@@ -264,16 +264,10 @@ void cmd_Sget(const Array<string>& toks) {
     cout << s->data[id-1] << "\n";
 }
 
-// === ХРАНИЛИЩЕ ДЕРЕВЬЕВ ===
-const int MAX_TREES = 16;
-string tree_names[MAX_TREES];
-FullBinaryTree<int>* trees[MAX_TREES];
-int tree_count = 0;
-
 // === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ===
 int find_tree_index(const string& name) {
-    for (int i = 0; i < tree_count; ++i)
-        if (tree_names[i] == name)
+    for (int i = 0; i < names_T.max_index; ++i)
+        if (names_T.is_set[i] && names_T.data[i] == name)
             return i;
     return -1;
 }
@@ -283,18 +277,27 @@ void cmd_Tinsert(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "TINSERT требует имя и значение\n"; return; }
 
     string name = toks.data[1];
-    string value = toks.data[2];
-    for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
-
+    
     int idx = find_name_index(names_T, name);
-    FullBinaryTree<string>* tree;
+    FullBinaryTree* tree;
 
     if (idx == -1) {
-        tree = new FullBinaryTree<string>(create_fbt<string>());
-        add_named_container<FullBinaryTree<string>*>(names_T, data_T, name, tree);
-    } else tree = data_T.data[idx];
+        tree = new FullBinaryTree(create_fbt());
+        add_named_container<FullBinaryTree*>(names_T, data_T, name, tree);
+    } else {
+        tree = data_T.data[idx];
+    }
 
-    add_element_fbt(*tree, value);
+    // Обрабатываем все значения начиная с индекса 2
+    for (int i = 2; i < toks.max_index; ++i) {
+        try {
+            int value = stoi(toks.data[i]);  // Преобразуем каждое значение в int
+            add_element_fbt(*tree, value);
+        } catch (...) {
+            cerr << "Ошибка: значение '" << toks.data[i] << "' должно быть целым числом\n";
+        }
+    }
+    
     cout << "OK\n";
     save_db(g_file_path);
 }
@@ -307,7 +310,7 @@ void cmd_Tget(const Array<string>& toks) {
     int idx = find_name_index(names_T, name);
     if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
 
-    FullBinaryTree<string>* tree = data_T.data[idx];
+    FullBinaryTree* tree = data_T.data[idx];
     cout << "TREE " << name << ": ";
     print_fbt(tree->root);
 }
@@ -320,7 +323,7 @@ void cmd_Tfull(const Array<string>& toks) {
     int idx = find_name_index(names_T, name);
     if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
 
-    FullBinaryTree<string>* tree = data_T.data[idx];
+    FullBinaryTree* tree = data_T.data[idx];
     cout << "Full? " << (is_full_fbt(*tree) ? "Да" : "Нет") << "\n";
 }
 
@@ -329,14 +332,20 @@ void cmd_Tismember(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "ISMEMBER требует имя и значение\n"; return; }
 
     string name = toks.data[1];
-    string value = toks.data[2];
-    for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
+    string value_str = toks.data[2];
+    for (int i = 3; i < toks.max_index; ++i) value_str += " " + toks.data[i];
 
     int idx = find_name_index(names_T, name);
     if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
 
-    FullBinaryTree<string>* tree = data_T.data[idx];
-    cout << (find_element_fbt(tree->root, value) ? "1\n" : "0\n");
+    FullBinaryTree* tree = data_T.data[idx];
+    
+    try {
+        int value = stoi(value_str);  // Преобразуем string в int
+        cout << (find_element_fbt(tree->root, value) ? "1\n" : "0\n");
+    } catch (...) {
+        cerr << "Ошибка: значение должно быть целым числом\n";
+    }
 }
 
 void cmd_PRINT(const Array<string>& toks) {

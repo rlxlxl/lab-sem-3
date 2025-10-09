@@ -29,7 +29,7 @@ extern Array<string> names_S;
 extern Array<Stack<string>*> data_S;
 
 extern Array<string> names_T;
-extern Array<FullBinaryTree<string>*> data_T;
+extern Array<FullBinaryTree*> data_T;  // Изменено: теперь хранит FullBinaryTree*, а не FullBinaryTree<string>*
 
 extern string g_file_path;
 
@@ -82,9 +82,17 @@ void load_db(const string& path) {
             for (int i=2; i<toks.max_index; ++i) push_stack(*s, toks.data[i]);
             add_named_container(names_S, data_S, name, s);
         } else if (type == "T") {
-            FullBinaryTree<string>* tree = new FullBinaryTree<string>(create_fbt<string>());
-            for (int i=2; i<toks.max_index; ++i)
-                add_element_fbt(*tree, toks.data[i]);
+            // Изменено: создаем FullBinaryTree (не шаблонную) и добавляем int значения
+            FullBinaryTree* tree = new FullBinaryTree(create_fbt());
+            for (int i=2; i<toks.max_index; ++i) {
+                try {
+                    int value = stoi(toks.data[i]);  // Преобразуем string в int
+                    add_element_fbt(*tree, value);
+                } catch (...) {
+                    // Пропускаем некорректные значения
+                    continue;
+                }
+            }
             add_named_container(names_T, data_T, name, tree);
         }
     }
@@ -147,31 +155,29 @@ void save_db(const string& path) {
         out << "\n";
     }
 
-    // Деревья (FullBinaryTree)
-
+    // Деревья (FullBinaryTree) - изменено для работы с int
     for (int i = 0; i < names_T.max_index; ++i) {
-    if (!names_T.is_set[i]) continue;
-    out << "T " << names_T.data[i];
-    FullBinaryTree<string>* tree = data_T.data[i];
-    if (!tree->root) { out << "\n"; continue; }
-    // BFS обход с пользовательской очередью
-    Queue<NodeFBT<string>*> q = create_queue<NodeFBT<string>*>();
-    push_queue(q, tree->root);
-    while (q.size > 0) {
-        NodeFBT<string>* cur = pop_queue(q);
-        out << " " << cur->data;
-        if (cur->left) push_queue(q, cur->left);
-        if (cur->right) push_queue(q, cur->right);
+        if (!names_T.is_set[i]) continue;
+        out << "T " << names_T.data[i];
+        FullBinaryTree* tree = data_T.data[i];
+        if (!tree->root) { out << "\n"; continue; }
+        
+        // BFS обход с пользовательской очередью
+        Queue<NodeFBT*> q = create_queue<NodeFBT*>();  // Изменено: NodeFBT* вместо NodeFBT<string>*
+        push_queue(q, tree->root);
+        while (q.size > 0) {
+            NodeFBT* cur = pop_queue(q);  // Изменено: NodeFBT* вместо NodeFBT<string>*
+            out << " " << cur->data;      // data теперь int, но автоматически преобразуется в string
+            if (cur->left) push_queue(q, cur->left);
+            if (cur->right) push_queue(q, cur->right);
+        }
+        out << "\n";
     }
-    out << "\n";
-}
 
     out.close();
     remove(path.c_str());
     rename(tmp.c_str(), path.c_str());
 }
-
-
 
 int parse_index(const string& s) {
     try {
@@ -189,4 +195,3 @@ int find_name_index(Array<string>& names, const string& name) {
     }
     return -1;
 }
-

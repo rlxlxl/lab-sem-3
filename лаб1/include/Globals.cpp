@@ -17,7 +17,7 @@ Array<string> names_S = create_array_ar<string>(4);
 Array<Stack<string>*> data_S = create_array_ar<Stack<string>*>(4);
 
 Array<string> names_T = create_array_ar<string>(4);
-Array<FullBinaryTree<string>*> data_T = create_array_ar<FullBinaryTree<string>*>(4);
+Array<FullBinaryTree*> data_T = create_array_ar<FullBinaryTree*>(4);  // Изменено: FullBinaryTree* вместо FullBinaryTree<string>*
 
 // Путь к файлу
 string g_file_path;

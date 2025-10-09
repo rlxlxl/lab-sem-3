@@ -3,44 +3,39 @@
 #include "Queue.hpp"
 
 // Структура узла и дерева
-template<typename T>
 struct NodeFBT {
-    T data;
+    int data;
     NodeFBT* left;
     NodeFBT* right;
 };
 
-template<typename T>
 struct FullBinaryTree {
-    NodeFBT<T>* root;
+    NodeFBT* root;
 };
 
-template<typename T>
-FullBinaryTree<T> create_fbt() {
-    FullBinaryTree<T> tree;
+FullBinaryTree create_fbt() {
+    FullBinaryTree tree;
     tree.root = nullptr;
     return tree;
 }
 
-template<typename T>
-NodeFBT<T>* create_node_fbt(const T& value) {
-    NodeFBT<T>* node = new NodeFBT<T>;
+NodeFBT* create_node_fbt(int value) {
+    NodeFBT* node = new NodeFBT;
     node->data = value;
     node->left = node->right = nullptr;
     return node;
 }
 
-template<typename T>
-void add_element_fbt(FullBinaryTree<T>& tree, const T& value) {
-    NodeFBT<T>* newNode = create_node_fbt(value);
+void add_element_fbt(FullBinaryTree& tree, int value) {
+    NodeFBT* newNode = create_node_fbt(value);
     if (!tree.root) {
         tree.root = newNode;
         return;
     }
-    Queue<NodeFBT<T>*> q = create_queue<NodeFBT<T>*>();
+    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
     push_queue(q, tree.root);
     while (q.size > 0) {
-        NodeFBT<T>* cur = pop_queue(q);
+        NodeFBT* cur = pop_queue(q);
         if (!cur->left) {
             cur->left = newNode;
             return;
@@ -56,34 +51,28 @@ void add_element_fbt(FullBinaryTree<T>& tree, const T& value) {
     }
 }
 
-template<typename T>
-bool is_full_fbt(const FullBinaryTree<T>& tree) {
+bool is_full_fbt(const FullBinaryTree& tree) {
     if (!tree.root) return true;
 
-    Queue<NodeFBT<T>*> q = create_queue<NodeFBT<T>*>();
+    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
     push_queue(q, tree.root);
-    bool mustBeLeaf = false; // флаг: после первого неполного узла все должны быть листьями
+    bool mustBeLeaf = false;
 
     while (q.size > 0) {
-        NodeFBT<T>* cur = pop_queue(q);
+        NodeFBT* cur = pop_queue(q);
 
         if (mustBeLeaf) {
-            // Если мы должны встретить только листья, а текущий узел имеет детей
             if (cur->left || cur->right) return false;
         }
 
         if (cur->left && cur->right) {
-            // Оба ребенка есть, добавляем их в очередь
             push_queue(q, cur->left);
             push_queue(q, cur->right);
         } else if (cur->left && !cur->right) {
-            // Только левый ребенок — дерево не полное
             return false;
         } else if (!cur->left && cur->right) {
-            // Только правый ребенок — дерево не полное
             return false;
         } else {
-            // Узел без детей — все последующие должны быть листьями
             mustBeLeaf = true;
         }
     }
@@ -91,13 +80,12 @@ bool is_full_fbt(const FullBinaryTree<T>& tree) {
     return true;
 }
 
-template<typename T>
-bool find_element_fbt(NodeFBT<T>* root, const T& value) {
+bool find_element_fbt(NodeFBT* root, int value) {
     if (!root) return false;
-    Queue<NodeFBT<T>*> q = create_queue<NodeFBT<T>*>();
+    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
     push_queue(q, root);
     while (q.size > 0) {
-        NodeFBT<T>* cur = pop_queue(q);
+        NodeFBT* cur = pop_queue(q);
         if (cur->data == value) return true;
         if (cur->left) push_queue(q, cur->left);
         if (cur->right) push_queue(q, cur->right);
@@ -105,13 +93,12 @@ bool find_element_fbt(NodeFBT<T>* root, const T& value) {
     return false;
 }
 
-template<typename T>
-void print_fbt(NodeFBT<T>* root) {
+void print_fbt(NodeFBT* root) {
     if (!root) return;
-    Queue<NodeFBT<T>*> q = create_queue<NodeFBT<T>*>();
+    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
     push_queue(q, root);
     while (q.size > 0) {
-        NodeFBT<T>* cur = pop_queue(q);
+        NodeFBT* cur = pop_queue(q);
         cout << cur->data << " ";
         if (cur->left) push_queue(q, cur->left);
         if (cur->right) push_queue(q, cur->right);
