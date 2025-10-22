@@ -1,0 +1,22 @@
+MPUSH name value — добавить в конец
+MINDEX name index value — вставить по индексу
+MSET name index value — изменить по индексу
+MGET name index — получить элемент
+MDEL name index — удалить элемент
+MSIZE name — вывести количество элементов
+MCAP name — вывести вместимость массива
+PRINT name — вывести содержимое массива
+//
+LPUSH name value [front]           — добавить элемент в список (по умолчанию в хвост, front — в голову)
+LGET name index                     — получить элемент по индексу
+LDEL name index                     — удалить элемент по индексу
+LINSERT_BEFORE name index value     — вставить элемент перед указанным индексом
+LINSERT_AFTER  name index value     — вставить элемент после указанного индекса
+PRINT name                           — вывести содержимое списка
+//
+FPUSH name value [front]           — добавить элемент в список (по умолчанию в хвост, front — в голову)
+FGET name index                     — получить элемент по индексу
+FDEL name index                     — удалить элемент по индексу
+FINSERT_BEFORE name index value     — вставить элемент перед указанным индексом
+FINSERT_AFTER  name index value     — вставить элемент после указанного индекса
+PRINT name                           — вывести содержимое списка
