@@ -220,22 +220,7 @@ void cmd_Fdel(const Array<string>& toks) {
     cout << "OK\n";
     save_db(g_file_path);
 }
-// LPUSH (back)
-void cmd_Lpush(const Array<string>& toks) {
-    if (toks.max_index < 3) { cerr << "LPUSH требует имя и значение\n"; return; }
-    string name = toks.data[1];
-    string value = toks.data[2];
-    for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
-    int idx = find_name_index(names_L, name);
-    DoublyList<string>* dl;
-    if (idx == -1) {
-        dl = new DoublyList<string>(create_doublyList<string>());
-        add_named_container<DoublyList<string>*>(names_L, data_L, name, dl);
-    } else dl = data_L.data[idx];
-    add_element_back_dl<string>(value, *dl);
-    cout << "OK\n";
-    save_db(g_file_path);
-}
+
 
 void cmd_Lget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "LGET требует имя и индекс\n"; return; }
@@ -273,6 +258,124 @@ void cmd_Ldel(const Array<string>& toks) {
     delete cur;
     cout << "OK\n";
     save_db(g_file_path);
+}
+
+void cmd_Linsert_after(const Array<string>& toks) {
+    if (toks.max_index < 4) { 
+        cerr << "LINSERT_AFTER требует имя, индекс и значение\n"; 
+        return; 
+    }
+
+    string name = toks.data[1];
+    int idx_elem = parse_index(toks.data[2]);
+    if (idx_elem < 0) { cerr << "Неправильный индекс\n"; return; }
+
+    string value = toks.data[3];
+    for (int i = 4; i < toks.max_index; ++i) value += " " + toks.data[i];
+
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) { cerr << "Список не найден\n"; return; }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    Node_Dl<string>* cur = dl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < idx_elem) { cur = cur->next; ++pos; }
+    if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
+
+    add_element_after_dl(value, *dl, cur);
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+void cmd_Linsert_before(const Array<string>& toks) {
+    if (toks.max_index < 4) { 
+        cerr << "LINSERT_BEFORE требует имя, индекс и значение\n"; 
+        return; 
+    }
+
+    string name = toks.data[1];
+    int idx_elem = parse_index(toks.data[2]);
+    if (idx_elem < 0) { cerr << "Неправильный индекс\n"; return; }
+
+    string value = toks.data[3];
+    for (int i = 4; i < toks.max_index; ++i) value += " " + toks.data[i];
+
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) { cerr << "Список не найден\n"; return; }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    Node_Dl<string>* cur = dl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < idx_elem) { cur = cur->next; ++pos; }
+    if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
+
+    add_element_before_dl(value, *dl, cur);
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+void cmd_Lpush(const Array<string>& toks) {
+    if (toks.max_index < 3) { cerr << "LPUSH требует имя и значение\n"; return; }
+
+    string name = toks.data[1];
+    string value = toks.data[2];
+
+    int i = 3;
+    // собираем значение из нескольких токенов, пока не встретили "front" или "back"
+    string pos = "back"; // по умолчанию хвост
+    for (; i < toks.max_index; ++i) {
+        if (toks.data[i] == "front" || toks.data[i] == "back") {
+            pos = toks.data[i];
+            break;
+        }
+        value += " " + toks.data[i];
+    }
+
+    int idx = find_name_index(names_L, name);
+    DoublyList<string>* dl;
+    if (idx == -1) {
+        dl = new DoublyList<string>(create_doublyList<string>());
+        add_named_container<DoublyList<string>*>(names_L, data_L, name, dl);
+    } else dl = data_L.data[idx];
+
+    if (pos == "front") add_element_front_dl(value, *dl);
+    else add_element_back_dl(value, *dl);
+
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+void cmd_Lfind(const Array<string>& toks) {
+    if (toks.max_index < 3) { cerr << "LFIND требует имя и значение\n"; return; }
+    string name = toks.data[1];
+    string value = toks.data[2];
+    for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
+
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) { cerr << "Список не найден\n"; return; }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    Node_Dl<string>* found = find_element_dl(value, *dl);
+    if (found) {
+        cout << "Элемент найден по адресу: " << found << "\n";
+    } else {
+        cout << "Элемент не найден\n";
+    }
+}
+
+void cmd_Lprint(const Array<string>& toks) {
+    if (toks.max_index < 2) { cerr << "LPRINT требует имя\n"; return; }
+    string name = toks.data[1];
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) { cerr << "Список не найден\n"; return; }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    Node_Dl<string>* cur = dl->head;
+    while (cur != nullptr) {
+        cout << *(cur->data) << " ";
+        cur = cur->next;
+    }
+    cout << "\n";
 }
 
 // QPUSH / QPOP / QGET
