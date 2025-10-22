@@ -83,11 +83,11 @@ void load_db(const string& path) {
             for (int i=2; i<toks.max_index; ++i) push_stack(*s, toks.data[i]);
             add_named_container(names_S, data_S, name, s);
         } else if (type == "T") {
-            FullBinaryTree* tree = new FullBinaryTree(create_fbt());
+            FullBinaryTree* tree = new FullBinaryTree(create_bst());
             for (int i=2; i<toks.max_index; ++i) {
                 try {
                     int value = stoi(toks.data[i]);
-                    add_element_fbt(*tree, value);
+                    add_element_bst(*tree, value);
                 } catch (...) {
                     continue;
                 }
@@ -167,10 +167,10 @@ void save_db(const string& path) {
         if (!tree->root) { out << "\n"; continue; }
         
         // BFS обход с пользовательской очередью
-        Queue<NodeFBT*> q = create_queue<NodeFBT*>();
+        Queue<NodeBST*> q = create_queue<NodeBST*>();
         push_queue(q, tree->root);
         while (q.size > 0) {
-            NodeFBT* cur = pop_queue(q);
+            NodeBST* cur = pop_queue(q);
             out << " " << cur->data;
             if (cur->left) push_queue(q, cur->left);
             if (cur->right) push_queue(q, cur->right);

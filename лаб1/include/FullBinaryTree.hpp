@@ -1,109 +1,42 @@
 #pragma once
-
 #include "Queue.hpp"
+#include <iostream>
+using namespace std;
 
-// Структура узла и дерева
-struct NodeFBT {
+// Узел BST
+struct NodeBST {
     int data;
-    NodeFBT* left;
-    NodeFBT* right;
+    NodeBST* left;
+    NodeBST* right;
 };
 
+// BST
 struct FullBinaryTree {
-    NodeFBT* root;
+    NodeBST* root;
 };
 
-FullBinaryTree create_fbt() {
-    FullBinaryTree tree;
-    tree.root = nullptr;
-    return tree;
+// Создать пустое дерево
+FullBinaryTree create_bst() {
+    return {nullptr};
 }
 
-NodeFBT* create_node_fbt(int value) {
-    NodeFBT* node = new NodeFBT;
+// Создать узел
+NodeBST* create_node_bst(int value) {
+    NodeBST* node = new NodeBST;
     node->data = value;
     node->left = node->right = nullptr;
     return node;
 }
 
-void add_element_fbt(FullBinaryTree& tree, int value) {
-    NodeFBT* newNode = create_node_fbt(value);
-    if (!tree.root) {
-        tree.root = newNode;
-        return;
+void add_element_bst(FullBinaryTree& tree, int value) {
+    NodeBST** cur = &tree.root;
+    while (*cur) {
+        if (value < (*cur)->data)
+            cur = &(*cur)->left;
+        else
+            cur = &(*cur)->right;
     }
-    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
-    push_queue(q, tree.root);
-    while (q.size > 0) {
-        NodeFBT* cur = pop_queue(q);
-        if (!cur->left) {
-            cur->left = newNode;
-            return;
-        } else {
-            push_queue(q, cur->left);
-        }
-        if (!cur->right) {
-            cur->right = newNode;
-            return;
-        } else {
-            push_queue(q, cur->right);
-        }
-    }
-}
-
-bool is_full_fbt(const FullBinaryTree& tree) {
-    if (!tree.root) return true;
-
-    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
-    push_queue(q, tree.root);
-    bool mustBeLeaf = false;
-
-    while (q.size > 0) {
-        NodeFBT* cur = pop_queue(q);
-
-        if (mustBeLeaf) {
-            if (cur->left || cur->right) return false;
-        }
-
-        if (cur->left && cur->right) {
-            push_queue(q, cur->left);
-            push_queue(q, cur->right);
-        } else if (cur->left && !cur->right) {
-            return false;
-        } else if (!cur->left && cur->right) {
-            return false;
-        } else {
-            mustBeLeaf = true;
-        }
-    }
-
-    return true;
-}
-
-bool find_element_fbt(NodeFBT* root, int value) {
-    if (!root) return false;
-    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
-    push_queue(q, root);
-    while (q.size > 0) {
-        NodeFBT* cur = pop_queue(q);
-        if (cur->data == value) return true;
-        if (cur->left) push_queue(q, cur->left);
-        if (cur->right) push_queue(q, cur->right);
-    }
-    return false;
-}
-
-void print_fbt(NodeFBT* root) {
-    if (!root) return;
-    Queue<NodeFBT*> q = create_queue<NodeFBT*>();
-    push_queue(q, root);
-    while (q.size > 0) {
-        NodeFBT* cur = pop_queue(q);
-        cout << cur->data << " ";
-        if (cur->left) push_queue(q, cur->left);
-        if (cur->right) push_queue(q, cur->right);
-    }
-    cout << "\n";
+    *cur = create_node_bst(value);
 }
 
 struct PrintLine {
@@ -111,60 +44,46 @@ struct PrintLine {
     PrintLine* next;
 };
 
-// Рекурсивная функция для построения строк вывода
-PrintLine* build_tree_lines(NodeFBT* node, bool isLeft, string prefix) {
+PrintLine* build_tree_lines(NodeBST* node, bool isLeft, string prefix) {
     if (!node) return nullptr;
 
-    // Создаем строку для текущего узла
     PrintLine* current = new PrintLine;
     current->line = prefix + (isLeft ? "├── " : "└── ") + to_string(node->data);
     current->next = nullptr;
 
-    // Рекурсивно обрабатываем потомков
     string newPrefix = prefix + (isLeft ? "│   " : "    ");
-    
     PrintLine* last = current;
-    
+
     if (node->left && node->right) {
-        // Есть оба потомка
         PrintLine* leftLines = build_tree_lines(node->left, true, newPrefix);
         PrintLine* rightLines = build_tree_lines(node->right, false, newPrefix);
-        
-        if (leftLines) {
-            last->next = leftLines;
-            while (last->next) last = last->next;
-        }
-        if (rightLines) {
-            last->next = rightLines;
-        }
+        if (leftLines) { last->next = leftLines; while (last->next) last = last->next; }
+        if (rightLines) last->next = rightLines;
     } else if (node->left) {
-        // Только левый потомок
         PrintLine* leftLines = build_tree_lines(node->left, false, newPrefix);
-        if (leftLines) {
-            last->next = leftLines;
-        }
+        if (leftLines) last->next = leftLines;
     } else if (node->right) {
-        // Только правый потомок
         PrintLine* rightLines = build_tree_lines(node->right, false, newPrefix);
-        if (rightLines) {
-            last->next = rightLines;
-        }
+        if (rightLines) last->next = rightLines;
     }
 
     return current;
 }
 
-// Функция для красивого вывода дерева (вертикальный вывод)
-void print_tree_pretty(NodeFBT* root) {
-    if (!root) {
-        cout << "Дерево пустое\n";
-        return;
+bool find_element_bst(NodeBST* root, int value) {
+    NodeBST* cur = root;
+    while (cur) {
+        if (cur->data == value) return true;
+        else if (value < cur->data) cur = cur->left;
+        else cur = cur->right;
     }
+    return false;
+}
 
-    // Получаем строки для вывода
+void print_tree_pretty(NodeBST* root) {
+    if (!root) { cout << "Дерево пустое\n"; return; }
+
     PrintLine* lines = build_tree_lines(root, false, "");
-    
-    // Выводим результат и освобождаем память
     PrintLine* current = lines;
     while (current) {
         cout << current->line << "\n";
@@ -173,4 +92,3 @@ void print_tree_pretty(NodeFBT* root) {
         delete temp;
     }
 }
-

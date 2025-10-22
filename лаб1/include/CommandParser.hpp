@@ -567,45 +567,33 @@ void cmd_Sget(const Array<string>& toks) {
     cout << current->data << "\n";
 }
 
-// === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ===
-int find_tree_index(const string& name) {
-    for (int i = 0; i < names_T.max_index; ++i)
-        if (names_T.is_set[i] && names_T.data[i] == name)
-            return i;
-    return -1;
-}
-
-// === TINSERT ===
 void cmd_Tinsert(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "TINSERT требует имя и значение\n"; return; }
 
     string name = toks.data[1];
-    
     int idx = find_name_index(names_T, name);
     FullBinaryTree* tree;
 
     if (idx == -1) {
-        tree = new FullBinaryTree(create_fbt());
+        tree = new FullBinaryTree(create_bst());
         add_named_container<FullBinaryTree*>(names_T, data_T, name, tree);
     } else {
-        tree = data_T.data[idx];
+        tree = reinterpret_cast<FullBinaryTree*>(data_T.data[idx]);
     }
 
-    // Обрабатываем все значения начиная с индекса 2
     for (int i = 2; i < toks.max_index; ++i) {
         try {
             int value = stoi(toks.data[i]);
-            add_element_fbt(*tree, value);
+            add_element_bst(*tree, value);
         } catch (...) {
             cerr << "Ошибка: значение '" << toks.data[i] << "' должно быть целым числом\n";
         }
     }
-    
+
     cout << "OK\n";
     save_db(g_file_path);
 }
 
-// TGET tree_name
 void cmd_Tget(const Array<string>& toks) {
     if (toks.max_index < 2) { cerr << "TGET требует имя\n"; return; }
 
@@ -613,12 +601,59 @@ void cmd_Tget(const Array<string>& toks) {
     int idx = find_name_index(names_T, name);
     if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
 
-    FullBinaryTree* tree = data_T.data[idx];
+    FullBinaryTree* tree = reinterpret_cast<FullBinaryTree*>(data_T.data[idx]);
     cout << "TREE " << name << ": ";
-    print_fbt(tree->root);
+    print_tree_pretty(tree->root);
 }
 
-// TFULL tree_name
+void cmd_Tismember(const Array<string>& toks) {
+    if (toks.max_index < 3) { cerr << "ISMEMBER требует имя и значение\n"; return; }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_T, name);
+    if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
+
+    FullBinaryTree* tree = reinterpret_cast<FullBinaryTree*>(data_T.data[idx]);
+
+    try {
+        int value = stoi(toks.data[2]);
+        cout << (find_element_bst(tree->root, value) ? "1\n" : "0\n");
+    } catch (...) {
+        cerr << "Ошибка: значение должно быть целым числом\n";
+    }
+}
+
+void cmd_Tpretty(const Array<string>& toks) {
+    if (toks.max_index < 2) { cerr << "TPRETTY требует имя\n"; return; }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_T, name);
+    if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
+
+    FullBinaryTree* tree = reinterpret_cast<FullBinaryTree*>(data_T.data[idx]);
+    cout << "Дерево '" << name << "':\n";
+    print_tree_pretty(tree->root);
+}
+
+// TFULL tree_name (для BST можно проверять, что все уровни кроме последнего заполнены)
+bool is_full_bst(NodeBST* root) {
+    if (!root) return true;
+    Queue<NodeBST*> q = create_queue<NodeBST*>();
+    push_queue(q, root);
+    bool mustBeLeaf = false;
+    while (q.size > 0) {
+        NodeBST* cur = pop_queue(q);
+        if (mustBeLeaf && (cur->left || cur->right)) return false;
+        if (cur->left && cur->right) {
+            push_queue(q, cur->left);
+            push_queue(q, cur->right);
+        } else if (cur->left && !cur->right) return false;
+        else if (!cur->left && cur->right) return false;
+        else mustBeLeaf = true;
+    }
+    return true;
+}
+
 void cmd_Tfull(const Array<string>& toks) {
     if (toks.max_index < 2) { cerr << "TFULL требует имя\n"; return; }
 
@@ -626,49 +661,8 @@ void cmd_Tfull(const Array<string>& toks) {
     int idx = find_name_index(names_T, name);
     if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
 
-    FullBinaryTree* tree = data_T.data[idx];
-    cout << "Full? " << (is_full_fbt(*tree) ? "Да" : "Нет") << "\n";
-}
-
-// ISMEMBER tree_name value
-void cmd_Tismember(const Array<string>& toks) {
-    if (toks.max_index < 3) { cerr << "ISMEMBER требует имя и значение\n"; return; }
-
-    string name = toks.data[1];
-    string value_str = toks.data[2];
-    for (int i = 3; i < toks.max_index; ++i) value_str += " " + toks.data[i];
-
-    int idx = find_name_index(names_T, name);
-    if (idx == -1) { cerr << "Дерево не найдено\n"; return; }
-
-    FullBinaryTree* tree = data_T.data[idx];
-    
-    try {
-        int value = stoi(value_str);
-        cout << (find_element_fbt(tree->root, value) ? "1\n" : "0\n");
-    } catch (...) {
-        cerr << "Ошибка: значение должно быть целым числом\n";
-    }
-}
-
-void cmd_Tpretty(const Array<string>& toks) {
-    if (toks.max_index < 2) { 
-        cerr << "TPRETTY требует имя\n"; 
-        return; 
-    }
-
-    string name = toks.data[1];
-    int idx = find_name_index(names_T, name);
-    if (idx == -1) { 
-        cerr << "Дерево не найдено\n"; 
-        return; 
-    }
-
-    FullBinaryTree* tree = data_T.data[idx];
-    cout << "Дерево '" << name << "':\n";
-    
-    cout << "=== Красивый вывод ===\n";
-    print_tree_pretty(tree->root);
+    FullBinaryTree* tree = reinterpret_cast<FullBinaryTree*>(data_T.data[idx]);
+    cout << "Full? " << (is_full_bst(tree->root) ? "Да" : "Нет") << "\n";
 }
 
 void cmd_PRINT(const Array<string>& toks) {
