@@ -49,6 +49,7 @@ int main(int argc, char* argv[]) {
         MPUSH, MGET, MDEL,
         MSET, MINDEX, MSIZE, MCAP,
         FPUSH, FGET, FDEL,
+        FININSERT_BEFORE, FININSERT_AFTER,
         LPUSH, LGET, LDEL, LFIND,
         LINSERT_AFTER, LINSERT_BEFORE,
         QPUSH, QPOP, QGET,
@@ -67,8 +68,10 @@ int main(int argc, char* argv[]) {
         if (cmd == "MSIZE")  return CommandType::MSIZE;     
         if (cmd == "MCAP")  return CommandType::MCAP; 
         if (cmd == "FPUSH") return CommandType::FPUSH;
-        if (cmd == "FGET")  return CommandType::FGET;
-        if (cmd == "FDEL")  return CommandType::FDEL;
+        if (cmd == "FGET") return CommandType::FGET;
+        if (cmd == "FDEL") return CommandType::FDEL;
+        if (cmd == "FININSERT_BEFORE") return CommandType::FININSERT_BEFORE;
+        if (cmd == "FININSERT_AFTER") return CommandType::FININSERT_AFTER;
         if (cmd == "LPUSH") return CommandType::LPUSH;
         if (cmd == "LGET") return CommandType::LGET;
         if (cmd == "LDEL") return CommandType::LDEL;
@@ -99,8 +102,10 @@ int main(int argc, char* argv[]) {
         case CommandType::MSIZE: cmd_Msize(toks); break;     
         case CommandType::MCAP:  cmd_Mcap(toks); break;
         case CommandType::FPUSH: cmd_Fpush(toks); break;
-        case CommandType::FGET:  cmd_Fget(toks);  break;
-        case CommandType::FDEL:  cmd_Fdel(toks);  break;
+        case CommandType::FGET:  cmd_Fget(toks); break;
+        case CommandType::FDEL:  cmd_Fdel(toks); break;
+        case CommandType::FININSERT_BEFORE: cmd_Finsert_before(toks); break;
+        case CommandType::FININSERT_AFTER:  cmd_Finsert_after(toks); break;
         case CommandType::LPUSH: cmd_Lpush(toks); break;
         case CommandType::LGET:  cmd_Lget(toks);  break;
         case CommandType::LDEL:  cmd_Ldel(toks);  break;

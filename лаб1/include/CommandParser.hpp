@@ -158,19 +158,25 @@ void cmd_Mcap(const Array<string>& toks) {
     cout << arr->capacity << "\n";
 }
 
-// FPUSH (back)
 void cmd_Fpush(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "FPUSH требует имя и значение\n"; return; }
     string name = toks.data[1];
     string value = toks.data[2];
     for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
+
+    bool front = false;
+    if (toks.max_index > 3 && toks.data[3] == "front") front = true;
+
     int idx = find_name_index(names_F, name);
     ForwardList<string>* fl;
     if (idx == -1) {
         fl = new ForwardList<string>(create_forwardList<string>());
         add_named_container<ForwardList<string>*>(names_F, data_F, name, fl);
     } else fl = data_F.data[idx];
-    add_element_back_fl<string>(value, *fl);
+
+    if (front) add_element_front_fl(value, *fl);
+    else add_element_back_fl(value, *fl);
+
     cout << "OK\n";
     save_db(g_file_path);
 }
@@ -179,28 +185,34 @@ void cmd_Fget(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "FGET требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; }
+
     int idx = find_name_index(names_F, name);
     if (idx == -1) { cerr << "Список не найден\n"; return; }
+
     ForwardList<string>* fl = data_F.data[idx];
     Node_Fl<string>* cur = fl->head;
-    int pos = 0; // Изменено: 0 вместо 1
+    int pos = 0;
     while (cur != nullptr && pos < id) { cur = cur->next; ++pos; }
+
     if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
     cout << *(cur->data) << "\n";
 }
 
-// FDEL - индексация с 0
 void cmd_Fdel(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "FDEL требует имя и индекс\n"; return; }
     string name = toks.data[1];
     int id = parse_index(toks.data[2]);
-    if (id < 0) { cerr << "Неправильный индекс\n"; return; } // Изменено: 0 вместо 1
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; }
+
     int idx = find_name_index(names_F, name);
     if (idx == -1) { cerr << "Список не найден\n"; return; }
+
     ForwardList<string>* fl = data_F.data[idx];
     if (fl->head == nullptr) { cerr << "Список пуст\n"; return; }
-    if (id == 0) { // Изменено: 0 вместо 1
+
+    Node_Fl<string>* cur = fl->head;
+    if (id == 0) {
         Node_Fl<string>* todel = fl->head;
         fl->head = todel->next;
         delete todel->data;
@@ -209,16 +221,79 @@ void cmd_Fdel(const Array<string>& toks) {
         save_db(g_file_path);
         return;
     }
-    Node_Fl<string>* cur = fl->head;
-    int pos = 0; // Изменено: 0 вместо 1
-    while (cur != nullptr && pos < id - 1) { cur = cur->next; ++pos; } // Изменено: id-1 вместо id-2
+
+    int pos = 0;
+    while (cur != nullptr && pos < id-1) { cur = cur->next; ++pos; }
     if (cur == nullptr || cur->next == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
+
     Node_Fl<string>* todel = cur->next;
     cur->next = todel->next;
     delete todel->data;
     delete todel;
     cout << "OK\n";
     save_db(g_file_path);
+}
+
+void cmd_Finsert_before(const Array<string>& toks) {
+    if (toks.max_index < 4) { cerr << "FININSERT_BEFORE требует имя, индекс и значение\n"; return; }
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; }
+
+    string value = toks.data[3];
+    for (int i=4; i<toks.max_index; ++i) value += " " + toks.data[i];
+
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) { cerr << "Список не найден\n"; return; }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    Node_Fl<string>* cur = fl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < id) { cur = cur->next; ++pos; }
+    if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
+
+    add_element_before_fl(value, *fl, cur);
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+void cmd_Finsert_after(const Array<string>& toks) {
+    if (toks.max_index < 4) { cerr << "FININSERT_AFTER требует имя, индекс и значение\n"; return; }
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id < 0) { cerr << "Неправильный индекс\n"; return; }
+
+    string value = toks.data[3];
+    for (int i=4; i<toks.max_index; ++i) value += " " + toks.data[i];
+
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) { cerr << "Список не найден\n"; return; }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    Node_Fl<string>* cur = fl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < id) { cur = cur->next; ++pos; }
+    if (cur == nullptr) { cerr << "Индекс вне диапазона\n"; return; }
+
+    add_element_after_fl(value, *fl, cur);
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+void cmd_PRINT_F(const Array<string>& toks) {
+    if (toks.max_index < 2) { cerr << "PRINT требует имя\n"; return; }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) { cerr << "Список не найден\n"; return; }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    Node_Fl<string>* cur = fl->head;
+    while (cur != nullptr) {
+        cout << *(cur->data) << " ";
+        cur = cur->next;
+    }
+    cout << "\n";
 }
 
 
