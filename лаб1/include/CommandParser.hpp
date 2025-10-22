@@ -54,6 +54,110 @@ void cmd_Mdel(const Array<string>& toks) {
     save_db(g_file_path);
 }
 
+void cmd_Mset(const Array<string>& toks) {
+    if (toks.max_index < 4) {
+        cerr << "MSET требует имя, индекс и новое значение\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id < 0) {
+        cerr << "Неправильный индекс\n";
+        return;
+    }
+
+    string new_value = toks.data[3];
+    for (int i = 4; i < toks.max_index; ++i) {
+        new_value += " " + toks.data[i];
+    }
+
+    int idx = find_name_index(names_M, name);
+    if (idx == -1) {
+        cerr << "Массив не найден\n";
+        return;
+    }
+
+    Array<string>* arr = data_M.data[idx];
+    if (id >= arr->max_index || !arr->is_set[id]) {
+        cerr << "Индекс вне диапазона или элемент не установлен\n";
+        return;
+    }
+
+    change_element_index_ar<string>(*arr, id + 1, new_value); // +1 — т.к. функция 1-based
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+// MINDEX - вставка по индексу (0-based)
+void cmd_Mindex(const Array<string>& toks) {
+    if (toks.max_index < 4) {
+        cerr << "MINDEX требует имя, индекс и значение\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id < 0) {
+        cerr << "Неправильный индекс\n";
+        return;
+    }
+
+    string value = toks.data[3];
+    for (int i = 4; i < toks.max_index; ++i) {
+        value += " " + toks.data[i];
+    }
+
+    int idx = find_name_index(names_M, name);
+    Array<string>* arr;
+    if (idx == -1) {
+        arr = new Array<string>(create_array_ar<string>(id + 1));
+        add_named_container<Array<string>*>(names_M, data_M, name, arr);
+    } else {
+        arr = data_M.data[idx];
+    }
+
+    add_element_index_ar<string>(*arr, id + 1, value); // +1 — 1-based
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+// MSIZE - размер массива
+void cmd_Msize(const Array<string>& toks) {
+    if (toks.max_index < 2) {
+        cerr << "MSIZE требует имя\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_M, name);
+    if (idx == -1) {
+        cerr << "Массив не найден\n";
+        return;
+    }
+
+    Array<string>* arr = data_M.data[idx];
+    cout << arr->max_index << "\n";
+}
+
+// MCAP - вместимость массива
+void cmd_Mcap(const Array<string>& toks) {
+    if (toks.max_index < 2) {
+        cerr << "MCAP требует имя\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_M, name);
+    if (idx == -1) {
+        cerr << "Массив не найден\n";
+        return;
+    }
+
+    Array<string>* arr = data_M.data[idx];
+    cout << arr->capacity << "\n";
+}
+
 // FPUSH (back)
 void cmd_Fpush(const Array<string>& toks) {
     if (toks.max_index < 3) { cerr << "FPUSH требует имя и значение\n"; return; }

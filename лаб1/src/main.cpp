@@ -47,6 +47,7 @@ int main(int argc, char* argv[]) {
     // --- enum + switch ---
     enum class CommandType {
         MPUSH, MGET, MDEL,
+        MSET, MINDEX, MSIZE, MCAP,
         FPUSH, FGET, FDEL,
         LPUSH, LGET, LDEL,
         QPUSH, QPOP, QGET,
@@ -60,6 +61,10 @@ int main(int argc, char* argv[]) {
         if (cmd == "MPUSH") return CommandType::MPUSH;
         if (cmd == "MGET")  return CommandType::MGET;
         if (cmd == "MDEL")  return CommandType::MDEL;
+        if (cmd == "MSET")  return CommandType::MSET;      
+        if (cmd == "MINDEX")  return CommandType::MINDEX;   
+        if (cmd == "MSIZE")  return CommandType::MSIZE;     
+        if (cmd == "MCAP")  return CommandType::MCAP; 
         if (cmd == "FPUSH") return CommandType::FPUSH;
         if (cmd == "FGET")  return CommandType::FGET;
         if (cmd == "FDEL")  return CommandType::FDEL;
@@ -85,6 +90,10 @@ int main(int argc, char* argv[]) {
         case CommandType::MPUSH: cmd_Mpush(toks); break;
         case CommandType::MGET:  cmd_Mget(toks);  break;
         case CommandType::MDEL:  cmd_Mdel(toks);  break;
+        case CommandType::MSET:  cmd_Mset(toks);  break;     
+        case CommandType::MINDEX: cmd_Mindex(toks); break;   
+        case CommandType::MSIZE: cmd_Msize(toks); break;     
+        case CommandType::MCAP:  cmd_Mcap(toks); break;
         case CommandType::FPUSH: cmd_Fpush(toks); break;
         case CommandType::FGET:  cmd_Fget(toks);  break;
         case CommandType::FDEL:  cmd_Fdel(toks);  break;
