@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 using namespace std;
 
@@ -14,64 +13,65 @@ struct Queue {
 
 template<typename T>
 Queue<T> create_queue() {
-    Queue<T> new_queue;
-    new_queue.data = nullptr;
-    new_queue.front = 0;
-    new_queue.rear = 0;
-    new_queue.capacity = 0;
-    new_queue.size = 0;
-    return new_queue;
+    Queue<T> q;
+    return q;
 }
 
 template<typename T>
-void resize_queue(Queue<T>& queue) {
-    int new_capacity = queue.capacity;
-    if (new_capacity == 0) {
-        new_capacity = (queue.capacity + 1) * 2;
-    } else {
-        new_capacity = queue.capacity * 2;
+void resize_queue(Queue<T>& q) {
+    int old_cap = q.capacity;
+    int new_cap = (old_cap == 0) ? 2 : old_cap * 2;
+
+    T* new_data = new T[new_cap]();
+    for (int i = 0; i < q.size; i++) {
+        int idx = (q.front + i) % (old_cap == 0 ? 1 : old_cap);
+        new_data[i] = q.data[idx];
     }
-    T* new_data = new T[new_capacity]();
-    int new_index = 0;
-    for (int i = 0; i < queue.size; i++) {
-        int index = (queue.front + i) % queue.capacity;
-        new_data[new_index++] = queue.data[index]; 
-    }
-    delete[] queue.data;
-    queue.data = new_data;
-    queue.capacity = new_capacity;
-    queue.front = 0;
-    queue.rear = queue.size;
+
+    delete[] q.data;
+    q.data = new_data;
+    q.capacity = new_cap;
+    q.front = 0;
+    q.rear = q.size;
 }
 
-template<typename T>
-void push_queue(Queue<T>& queue, T new_element) {
-    if (queue.size == queue.capacity) {
-        resize_queue(queue);
-    }
-    queue.data[queue.rear] = new_element;
-    queue.rear = (queue.rear + 1) % queue.capacity;
-    queue.size++;
-}
 
 template<typename T>
-T pop_queue(Queue<T>& queue) {
-    if (queue.size == 0) {
+void push_queue(Queue<T>& q, T new_element) {
+    if (q.size == q.capacity) {
+        resize_queue(q);
+    }
+
+    q.data[q.rear] = new_element;
+    q.rear = (q.rear + 1) % q.capacity;
+    q.size++;
+}
+
+
+template<typename T>
+T pop_queue(Queue<T>& q) {
+    if (q.size == 0) {
         cerr << "Ошибка: очередь пуста" << endl;
         return T();
     }
-    T value = queue.data[queue.front];
-    queue.front = (queue.front + 1) % queue.capacity;
-    queue.size--;
+
+    q.rear = (q.rear - 1 + q.capacity) % q.capacity;
+    T value = q.data[q.rear];
+    q.size--;
+
+    if (q.size == 0) {
+        q.front = q.rear = 0;
+    }
+
     return value;
 }
 
+
 template<typename T>
-void print_queue(Queue<T>& queue) {
-    for (int i = 0; i < queue.size; i++) {
-        int index = (queue.front + i) % queue.capacity;
-        cout << queue.data[index] << " ";
+void print_queue(Queue<T>& q) {
+    for (int i = 0; i < q.size; i++) {
+        int idx = (q.front + i) % q.capacity;
+        cout << q.data[idx] << " ";
     }
     cout << endl;
 }
-
