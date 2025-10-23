@@ -335,6 +335,71 @@ void cmd_Fdel_after(const Array<string>& toks) {
     save_db(g_file_path);
 }
 
+void cmd_Fdel_front(const Array<string>& toks) {
+    if (toks.max_index < 2) {
+        cerr << "FDEL_FRONT требует имя списка\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) {
+        cerr << "Список не найден\n";
+        return;
+    }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    if (!fl->head) {
+        cerr << "Список пуст\n";
+        return;
+    }
+
+    Node_Fl<string>* to_delete = fl->head;
+    fl->head = fl->head->next;
+
+    delete to_delete->data;
+    delete to_delete;
+
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+// Удаление последнего элемента односвязного списка
+void cmd_Fdel_back(const Array<string>& toks) {
+    if (toks.max_index < 2) {
+        cerr << "FDEL_BACK требует имя списка\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) {
+        cerr << "Список не найден\n";
+        return;
+    }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    if (!fl->head) {
+        cerr << "Список пуст\n";
+        return;
+    }
+
+    if (!fl->head->next) { // если один элемент
+        delete fl->head->data;
+        delete fl->head;
+        fl->head = nullptr;
+    } else {
+        Node_Fl<string>* cur = fl->head;
+        while (cur->next->next) cur = cur->next; // идём до предпоследнего
+        delete cur->next->data;
+        delete cur->next;
+        cur->next = nullptr;
+    }
+
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
 void cmd_Finsert_before(const Array<string>& toks) {
     if (toks.max_index < 4) { cerr << "FININSERT_BEFORE требует имя, индекс и значение\n"; return; }
     string name = toks.data[1];
@@ -432,6 +497,69 @@ void cmd_Ldel(const Array<string>& toks) {
     if (cur->next != nullptr) cur->next->prev = cur->prev; else dl->tail = cur->prev;
     delete cur->data;
     delete cur;
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+void cmd_Ldel_front(const Array<string>& toks) {
+    if (toks.max_index < 2) { 
+        cerr << "LDEL_FRONT требует имя\n"; 
+        return; 
+    }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) { 
+        cerr << "Список не найден\n"; 
+        return; 
+    }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    if (dl->head == nullptr) { 
+        cerr << "Список пуст\n"; 
+        return; 
+    }
+
+    Node_Dl<string>* to_delete = dl->head;
+    dl->head = dl->head->next;
+    if (dl->head) dl->head->prev = nullptr;
+    else dl->tail = nullptr; // если был один элемент
+
+    delete to_delete->data;
+    delete to_delete;
+
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+// Удаление последнего элемента двусвязного списка
+void cmd_Ldel_back(const Array<string>& toks) {
+    if (toks.max_index < 2) { 
+        cerr << "LDEL_BACK требует имя\n"; 
+        return; 
+    }
+
+    string name = toks.data[1];
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) { 
+        cerr << "Список не найден\n"; 
+        return; 
+    }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    if (dl->tail == nullptr) { 
+        cerr << "Список пуст\n"; 
+        return; 
+    }
+
+    Node_Dl<string>* to_delete = dl->tail;
+    dl->tail = dl->tail->prev;
+    if (dl->tail) dl->tail->next = nullptr;
+    else dl->head = nullptr; // если был один элемент
+
+    delete to_delete->data;
+    delete to_delete;
+
     cout << "OK\n";
     save_db(g_file_path);
 }

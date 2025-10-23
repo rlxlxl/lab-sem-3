@@ -124,6 +124,46 @@ void add_element_after_dl(T new_element, DoublyList<T>& dl, Node_Dl<T>* node) {
     node->next = new_node;
 }
 
+// Удаление элемента с начала списка
+template<typename T>
+void delete_front_dl(DoublyList<T>& dl) {
+    if (dl.head == nullptr) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+
+    Node_Dl<T>* to_delete = dl.head;
+    dl.head = dl.head->next;
+    if (dl.head != nullptr) {
+        dl.head->prev = nullptr;
+    } else {
+        dl.tail = nullptr; // если был один элемент
+    }
+
+    delete to_delete->data;
+    delete to_delete;
+}
+
+// Удаление элемента с конца списка
+template<typename T>
+void delete_back_dl(DoublyList<T>& dl) {
+    if (dl.tail == nullptr) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+
+    Node_Dl<T>* to_delete = dl.tail;
+    dl.tail = dl.tail->prev;
+    if (dl.tail != nullptr) {
+        dl.tail->next = nullptr;
+    } else {
+        dl.head = nullptr; // если был один элемент
+    }
+
+    delete to_delete->data;
+    delete to_delete;
+}
+
 template<typename T>
 Node_Dl<T>* find_element_dl(T element, DoublyList<T>& dl) {
     Node_Dl<T>* current = dl.head;

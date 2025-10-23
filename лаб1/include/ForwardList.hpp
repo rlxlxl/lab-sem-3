@@ -125,6 +125,43 @@ void delete_element_fl(ForwardList<T>& fl, Node_Fl<T>* node) {
     delete node;
 }
 
+// Удаляет первый элемент списка
+template<typename T>
+void delete_front_fl(ForwardList<T>& fl) {
+    if (!fl.head) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+    Node_Fl<T>* todel = fl.head;
+    fl.head = fl.head->next;
+    delete todel->data;
+    delete todel;
+}
+
+// Удаляет последний элемент списка
+template<typename T>
+void delete_back_fl(ForwardList<T>& fl) {
+    if (!fl.head) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+    if (!fl.head->next) { // если только один элемент
+        delete fl.head->data;
+        delete fl.head;
+        fl.head = nullptr;
+        return;
+    }
+    Node_Fl<T>* current = fl.head;
+    while (current->next->next != nullptr) {
+        current = current->next;
+    }
+    // current теперь предпоследний узел
+    Node_Fl<T>* todel = current->next;
+    current->next = nullptr;
+    delete todel->data;
+    delete todel;
+}
+
 template<typename T>
 void delete_element_before_fl(ForwardList<T>& fl, Node_Fl<T>* node) {
     if (!fl.head || !node) {
