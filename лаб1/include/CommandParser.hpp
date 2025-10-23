@@ -234,6 +234,52 @@ void cmd_Fdel(const Array<string>& toks) {
     save_db(g_file_path);
 }
 
+void cmd_Fdel_val(const Array<string>& toks) {
+    if (toks.max_index < 3) { 
+        cerr << "FDEL_VAL требует имя списка и значение\n"; 
+        return; 
+    }
+
+    string name = toks.data[1];
+    string value = toks.data[2];
+    for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
+
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) { 
+        cerr << "Список не найден\n"; 
+        return; 
+    }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    if (!fl->head) { 
+        cerr << "Список пуст\n"; 
+        return; 
+    }
+
+    Node_Fl<string>* current = fl->head;
+    Node_Fl<string>* prev = nullptr;
+
+    while (current != nullptr) {
+        if (*(current->data) == value) {
+            if (prev == nullptr) {
+                // удаляем голову
+                fl->head = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            delete current->data;
+            delete current;
+            cout << "OK\n";
+            save_db(g_file_path);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+
+    cerr << "Элемент не найден\n";
+}
+
 void cmd_Fdel_before(const Array<string>& toks) {
     if (toks.max_index < 3) {
         cerr << "FDEL_BEFORE требует имя списка и индекс\n";
@@ -531,6 +577,50 @@ void cmd_Ldel_front(const Array<string>& toks) {
     cout << "OK\n";
     save_db(g_file_path);
 }
+
+void cmd_Ldel_val(const Array<string>& toks) {
+    if (toks.max_index < 3) { 
+        cerr << "LDEL_VAL требует имя списка и значение\n"; 
+        return; 
+    }
+
+    string name = toks.data[1];
+    string value = toks.data[2];
+    for (int i = 3; i < toks.max_index; ++i) value += " " + toks.data[i];
+
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) { 
+        cerr << "Список не найден\n"; 
+        return; 
+    }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    if (!dl->head) { 
+        cerr << "Список пуст\n"; 
+        return; 
+    }
+
+    Node_Dl<string>* current = dl->head;
+    while (current != nullptr) {
+        if (*(current->data) == value) {
+            if (current->prev) current->prev->next = current->next;
+            else dl->head = current->next; // удаляем голову
+
+            if (current->next) current->next->prev = current->prev;
+            else dl->tail = current->prev; // удаляем хвост
+
+            delete current->data;
+            delete current;
+            cout << "OK\n";
+            save_db(g_file_path);
+            return;
+        }
+        current = current->next;
+    }
+
+    cerr << "Элемент не найден\n";
+}
+
 
 // Удаление последнего элемента двусвязного списка
 void cmd_Ldel_back(const Array<string>& toks) {

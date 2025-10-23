@@ -144,6 +144,41 @@ void delete_front_dl(DoublyList<T>& dl) {
     delete to_delete;
 }
 
+template<typename T>
+void delete_value_dl(T element, DoublyList<T>& dl) {
+    if (dl.head == nullptr) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+
+    Node_Dl<T>* current = dl.head;
+    while (current != nullptr) {
+        if (*(current->data) == element) {
+            // Связываем соседние узлы
+            if (current->prev != nullptr) {
+                current->prev->next = current->next;
+            } else {
+                dl.head = current->next; // удаляем первый элемент
+            }
+
+            if (current->next != nullptr) {
+                current->next->prev = current->prev;
+            } else {
+                dl.tail = current->prev; // удаляем последний элемент
+            }
+
+            delete current->data;
+            delete current;
+
+            cout << "OK\n";
+            return;
+        }
+        current = current->next;
+    }
+
+    cerr << "Ошибка: элемент не найден в списке" << endl;
+}
+
 // Удаление элемента с конца списка
 template<typename T>
 void delete_back_dl(DoublyList<T>& dl) {

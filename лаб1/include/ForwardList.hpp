@@ -138,6 +138,39 @@ void delete_front_fl(ForwardList<T>& fl) {
     delete todel;
 }
 
+template<typename T>
+void delete_by_value_fl(ForwardList<T>& fl, const T& value) {
+    if (!fl.head) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+
+    // Если удаляем голову
+    if (*(fl.head->data) == value) {
+        Node_Fl<T>* todel = fl.head;
+        fl.head = fl.head->next;
+        delete todel->data;
+        delete todel;
+        return;
+    }
+
+    Node_Fl<T>* current = fl.head;
+    while (current->next != nullptr && *(current->next->data) != value) {
+        current = current->next;
+    }
+
+    if (current->next == nullptr) {
+        cerr << "Ошибка: элемент не найден" << endl;
+        return;
+    }
+
+    // Удаляем найденный узел
+    Node_Fl<T>* todel = current->next;
+    current->next = todel->next;
+    delete todel->data;
+    delete todel;
+}
+
 // Удаляет последний элемент списка
 template<typename T>
 void delete_back_fl(ForwardList<T>& fl) {
