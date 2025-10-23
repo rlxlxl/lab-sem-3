@@ -234,6 +234,107 @@ void cmd_Fdel(const Array<string>& toks) {
     save_db(g_file_path);
 }
 
+void cmd_Fdel_before(const Array<string>& toks) {
+    if (toks.max_index < 3) {
+        cerr << "FDEL_BEFORE требует имя списка и индекс\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id <= 0) { 
+        cerr << "Ошибка: перед индексом 0 нет элемента\n"; 
+        return; 
+    }
+
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) { 
+        cerr << "Список не найден\n"; 
+        return; 
+    }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    if (!fl->head || !fl->head->next) {
+        cerr << "Список пуст или недостаточно элементов\n";
+        return;
+    }
+
+    Node_Fl<string>* cur = fl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < id) { 
+        cur = cur->next; 
+        ++pos; 
+    }
+
+    if (!cur || cur == fl->head) {
+        cerr << "Нет элемента перед указанным индексом\n";
+        return;
+    }
+
+    // Находим предыдущий узел
+    Node_Fl<string>* prev = fl->head;
+    while (prev->next != cur) prev = prev->next;
+
+    // Удаляем prev
+    if (prev == fl->head) fl->head = cur; // Если удаляем первый
+    else {
+        Node_Fl<string>* before_prev = fl->head;
+        while (before_prev->next != prev) before_prev = before_prev->next;
+        before_prev->next = cur;
+    }
+
+    delete prev->data;
+    delete prev;
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+// Удаляет элемент после указанного индекса (0-based)
+void cmd_Fdel_after(const Array<string>& toks) {
+    if (toks.max_index < 3) {
+        cerr << "FDEL_AFTER требует имя списка и индекс\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id < 0) { 
+        cerr << "Неправильный индекс\n"; 
+        return; 
+    }
+
+    int idx = find_name_index(names_F, name);
+    if (idx == -1) { 
+        cerr << "Список не найден\n"; 
+        return; 
+    }
+
+    ForwardList<string>* fl = data_F.data[idx];
+    if (!fl->head || !fl->head->next) {
+        cerr << "Список пуст или недостаточно элементов\n";
+        return;
+    }
+
+    Node_Fl<string>* cur = fl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < id) { 
+        cur = cur->next; 
+        ++pos; 
+    }
+
+    if (!cur || !cur->next) {
+        cerr << "Нет элемента после указанного индекса\n";
+        return;
+    }
+
+    Node_Fl<string>* to_delete = cur->next;
+    cur->next = to_delete->next;
+    delete to_delete->data;
+    delete to_delete;
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
 void cmd_Finsert_before(const Array<string>& toks) {
     if (toks.max_index < 4) { cerr << "FININSERT_BEFORE требует имя, индекс и значение\n"; return; }
     string name = toks.data[1];
@@ -331,6 +432,109 @@ void cmd_Ldel(const Array<string>& toks) {
     if (cur->next != nullptr) cur->next->prev = cur->prev; else dl->tail = cur->prev;
     delete cur->data;
     delete cur;
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+void cmd_Ldel_before(const Array<string>& toks) {
+    if (toks.max_index < 3) {
+        cerr << "LDEL_BEFORE требует имя и индекс\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id <= 0) {
+        cerr << "Ошибка: перед элементом с индексом 0 ничего нет\n";
+        return;
+    }
+
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) {
+        cerr << "Список не найден\n";
+        return;
+    }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    if (dl->head == nullptr) {
+        cerr << "Список пуст\n";
+        return;
+    }
+
+    Node_Dl<string>* cur = dl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < id) {
+        cur = cur->next;
+        ++pos;
+    }
+
+    if (cur == nullptr || cur->prev == nullptr) {
+        cerr << "Ошибка: нет элемента перед данным индексом\n";
+        return;
+    }
+
+    Node_Dl<string>* to_delete = cur->prev;
+    if (to_delete->prev)
+        to_delete->prev->next = cur;
+    else
+        dl->head = cur;
+    cur->prev = to_delete->prev;
+
+    delete to_delete->data;
+    delete to_delete;
+
+    cout << "OK\n";
+    save_db(g_file_path);
+}
+
+// Удаляет элемент после указанного индекса
+void cmd_Ldel_after(const Array<string>& toks) {
+    if (toks.max_index < 3) {
+        cerr << "LDEL_AFTER требует имя и индекс\n";
+        return;
+    }
+
+    string name = toks.data[1];
+    int id = parse_index(toks.data[2]);
+    if (id < 0) {
+        cerr << "Неправильный индекс\n";
+        return;
+    }
+
+    int idx = find_name_index(names_L, name);
+    if (idx == -1) {
+        cerr << "Список не найден\n";
+        return;
+    }
+
+    DoublyList<string>* dl = data_L.data[idx];
+    if (dl->head == nullptr) {
+        cerr << "Список пуст\n";
+        return;
+    }
+
+    Node_Dl<string>* cur = dl->head;
+    int pos = 0;
+    while (cur != nullptr && pos < id) {
+        cur = cur->next;
+        ++pos;
+    }
+
+    if (cur == nullptr || cur->next == nullptr) {
+        cerr << "Ошибка: нет элемента после данного индекса\n";
+        return;
+    }
+
+    Node_Dl<string>* to_delete = cur->next;
+    cur->next = to_delete->next;
+    if (to_delete->next)
+        to_delete->next->prev = cur;
+    else
+        dl->tail = cur;
+
+    delete to_delete->data;
+    delete to_delete;
+
     cout << "OK\n";
     save_db(g_file_path);
 }

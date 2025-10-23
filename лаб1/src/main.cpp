@@ -48,10 +48,11 @@ int main(int argc, char* argv[]) {
     enum class CommandType {
         MPUSH, MGET, MDEL,
         MSET, MINDEX, MSIZE, MCAP,
-        FPUSH, FGET, FDEL,
+        FPUSH, FGET, FDEL, FDEL_BEFORE, FDEL_AFTER,
         FININSERT_BEFORE, FININSERT_AFTER,
         LPUSH, LGET, LDEL, LFIND,
         LINSERT_AFTER, LINSERT_BEFORE,
+        LDEL_BEFORE, LDEL_AFTER,
         QPUSH, QPOP, QGET,
         SPUSH, SPOP, SGET,
         TINSERT, TFULL, TGET, TPRETTY,
@@ -70,11 +71,15 @@ int main(int argc, char* argv[]) {
         if (cmd == "FPUSH") return CommandType::FPUSH;
         if (cmd == "FGET") return CommandType::FGET;
         if (cmd == "FDEL") return CommandType::FDEL;
+        if (cmd == "FDEL_BEFORE") return CommandType::FDEL_BEFORE;
+        if (cmd == "FDEL_AFTER") return CommandType::FDEL_AFTER;
         if (cmd == "FININSERT_BEFORE") return CommandType::FININSERT_BEFORE;
         if (cmd == "FININSERT_AFTER") return CommandType::FININSERT_AFTER;
         if (cmd == "LPUSH") return CommandType::LPUSH;
         if (cmd == "LGET") return CommandType::LGET;
         if (cmd == "LDEL") return CommandType::LDEL;
+        if (cmd == "LDEL_BEFORE") return CommandType::LDEL_BEFORE;
+        if (cmd == "LDEL_AFTER")  return CommandType::LDEL_AFTER;
         if (cmd == "LFIND") return CommandType::LFIND;
         if (cmd == "LINSERT_AFTER") return CommandType::LINSERT_AFTER;
         if (cmd == "LINSERT_BEFORE") return CommandType::LINSERT_BEFORE;
@@ -106,9 +111,13 @@ int main(int argc, char* argv[]) {
         case CommandType::FDEL:  cmd_Fdel(toks); break;
         case CommandType::FININSERT_BEFORE: cmd_Finsert_before(toks); break;
         case CommandType::FININSERT_AFTER:  cmd_Finsert_after(toks); break;
+        case CommandType::FDEL_BEFORE: cmd_Fdel_before(toks); break;
+        case CommandType::FDEL_AFTER:  cmd_Fdel_after(toks); break;
         case CommandType::LPUSH: cmd_Lpush(toks); break;
         case CommandType::LGET:  cmd_Lget(toks);  break;
         case CommandType::LDEL:  cmd_Ldel(toks);  break;
+        case CommandType::LDEL_BEFORE: cmd_Ldel_before(toks); break;
+        case CommandType::LDEL_AFTER:  cmd_Ldel_after(toks);  break;
         case CommandType::LFIND: cmd_Lfind(toks); break;
         case CommandType::LINSERT_AFTER:  cmd_Linsert_after(toks);  break;
         case CommandType::LINSERT_BEFORE: cmd_Linsert_before(toks); break;

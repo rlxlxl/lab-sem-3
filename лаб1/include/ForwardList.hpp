@@ -126,6 +126,51 @@ void delete_element_fl(ForwardList<T>& fl, Node_Fl<T>* node) {
 }
 
 template<typename T>
+void delete_element_before_fl(ForwardList<T>& fl, Node_Fl<T>* node) {
+    if (!fl.head || !node) {
+        cerr << "Ошибка: список пуст или узел равен nullptr" << endl;
+        return;
+    }
+    if (node == fl.head) {
+        cerr << "Ошибка: перед головой ничего нет" << endl;
+        return;
+    }
+    // если перед головой, удалить нельзя, ищем предыдущий
+    Node_Fl<T>* prev = nullptr;
+    Node_Fl<T>* cur = fl.head;
+    while (cur != nullptr && cur->next != node) {
+        prev = cur;
+        cur = cur->next;
+    }
+    if (cur == nullptr) {
+        cerr << "Ошибка: узел не найден в списке" << endl;
+        return;
+    }
+    if (!prev) { // удаляем голову
+        fl.head = node;
+        delete cur->data;
+        delete cur;
+    } else {
+        prev->next = node;
+        delete cur->data;
+        delete cur;
+    }
+}
+
+// Удаляет узел после указанного node
+template<typename T>
+void delete_element_after_fl(ForwardList<T>& fl, Node_Fl<T>* node) {
+    if (!node || !node->next) {
+        cerr << "Ошибка: нет узла после указанного" << endl;
+        return;
+    }
+    Node_Fl<T>* todel = node->next;
+    node->next = todel->next;
+    delete todel->data;
+    delete todel;
+}
+
+template<typename T>
 void print_flist_while_fl(ForwardList<T>& fl) {
     Node_Fl<T>* current = fl.head;
     if (current == nullptr) {

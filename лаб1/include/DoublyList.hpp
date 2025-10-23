@@ -188,6 +188,69 @@ void print_dlist_while_dl(DoublyList<T>& dl) {
 }
 
 template<typename T>
+void delete_before_element_dl(T element, DoublyList<T>& dl) {
+    if (dl.head == nullptr) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+
+    Node_Dl<T>* current = dl.head;
+    while (current != nullptr) {
+        if (*(current->data) == element) {
+            if (current->prev == nullptr) {
+                cerr << "Ошибка: перед данным элементом ничего нет" << endl;
+                return;
+            }
+            Node_Dl<T>* to_delete = current->prev;
+            if (to_delete->prev != nullptr) {
+                to_delete->prev->next = current;
+                current->prev = to_delete->prev;
+            } else {
+                dl.head = current;
+                current->prev = nullptr;
+            }
+            delete to_delete->data;
+            delete to_delete;
+            return;
+        }
+        current = current->next;
+    }
+
+    cerr << "Ошибка: элемент не найден в списке" << endl;
+}
+
+template<typename T>
+void delete_after_element_dl(T element, DoublyList<T>& dl) {
+    if (dl.head == nullptr) {
+        cerr << "Ошибка: список пуст" << endl;
+        return;
+    }
+
+    Node_Dl<T>* current = dl.head;
+    while (current != nullptr) {
+        if (*(current->data) == element) {
+            if (current->next == nullptr) {
+                cerr << "Ошибка: после данного элемента ничего нет" << endl;
+                return;
+            }
+            Node_Dl<T>* to_delete = current->next;
+            current->next = to_delete->next;
+            if (to_delete->next != nullptr) {
+                to_delete->next->prev = current;
+            } else {
+                dl.tail = current;
+            }
+            delete to_delete->data;
+            delete to_delete;
+            return;
+        }
+        current = current->next;
+    }
+
+    cerr << "Ошибка: элемент не найден в списке" << endl;
+}
+
+template<typename T>
 void print_dlist_for_dl(DoublyList<T>& dl) {
     Node_Dl<T>* current = dl.head;
     if (current == nullptr) {
