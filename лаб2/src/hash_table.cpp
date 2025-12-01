@@ -584,6 +584,47 @@ void loadHashTablesFromFile(const char* filename) {
     cout << "Хэш-таблицы загружены из '" << filename << "'" << endl;
 }
 
+void initRomanHashTable(HashTable* ht) {
+    if (!ht) return;
+
+    hashTableInsert(ht, "M", "1000");
+    hashTableInsert(ht, "CM", "900");
+    hashTableInsert(ht, "D", "500");
+    hashTableInsert(ht, "CD", "400");
+    hashTableInsert(ht, "C", "100");
+    hashTableInsert(ht, "XC", "90");
+    hashTableInsert(ht, "L", "50");
+    hashTableInsert(ht, "XL", "40");
+    hashTableInsert(ht, "X", "10");
+    hashTableInsert(ht, "IX", "9");
+    hashTableInsert(ht, "V", "5");
+    hashTableInsert(ht, "IV", "4");
+    hashTableInsert(ht, "I", "1");
+}
+
+void convertToRomanUsingHashTable(HashTable* romanHT, int number, char* result, size_t resultSize) {
+    if (!romanHT || number <= 0 || number > 3999) {
+        strncpy(result, "ERROR", resultSize - 1);
+        result[resultSize - 1] = '\0';
+        return;
+    }
+
+    const char* romanSymbols[] = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+    result[0] = '\0';
+    int num = number;
+
+    for (int i = 0; i < 13; i++) {
+        const char* valueStr = hashTableFind(romanHT, romanSymbols[i]);
+        if (!valueStr) continue;
+        int value = atoi(valueStr);
+
+        while (num >= value) {
+            strcat(result, romanSymbols[i]);
+            num -= value;
+        }
+    }
+}
+
 void convertToRoman(int number, char* result, size_t resultSize) {
     if (number <= 0 || number > 3999) {
         strncpy(result, "ERROR", resultSize - 1);
@@ -624,16 +665,12 @@ void executeHashTableCommand(const char* command) {
     
     if (sscanf(command, "HCREATE %49s %49s", tableName, cmd) == 2) {
         HashTableType type;
-        if (strcmp(cmd, "CHAINING") == 0) {
-            type = CHAINING;
-        } else if (strcmp(cmd, "OPEN_ADDRESSING") == 0) {
-            type = OPEN_ADDRESSING;
-        } else {
-            cout << "Неизвестный тип. Используйте CHAINING или OPEN_ADDRESSING" << endl;
-            return;
-        }
-        
-        if (createHashTable(tableName, type, 16)) {
+        if (strcmp(cmd, "CHAINING") == 0) type = CHAINING;
+        else if (strcmp(cmd, "OPEN_ADDRESSING") == 0) type = OPEN_ADDRESSING;
+        else { cout << "Неизвестный тип. Используйте CHAINING или OPEN_ADDRESSING" << endl; return; }
+
+        HashTable* ht = createHashTable(tableName, type, 16);
+        if (ht) {
             cout << "Хэш-таблица '" << tableName << "' создана" << endl;
         }
     }
@@ -706,21 +743,30 @@ void executeHashTableCommand(const char* command) {
         loadHashTablesFromFile(command + 6);
     }
     else if (sscanf(command, "ROMAN %d", &number) == 1) {
+        HashTable* romanHT = findHashTable("ROMAN_TABLE");
+        if (!romanHT) {
+            romanHT = createHashTable("ROMAN_TABLE", CHAINING, 16);
+            initRomanHashTable(romanHT);
+        }
         char romanResult[50];
-        convertToRoman(number, romanResult, sizeof(romanResult));
+        convertToRomanUsingHashTable(romanHT, number, romanResult, sizeof(romanResult));
         cout << "Число " << number << " в римской системе: " << romanResult << endl;
     }
     else if (sscanf(command, "ROMAN_INSERT %49s \"%255[^\"]\" %d", tableName, key, &number) == 3 ||
              sscanf(command, "ROMAN_INSERT %49s %255s %d", tableName, key, &number) == 3) {
         HashTable* ht = findHashTable(tableName);
-        if (ht) {
-            char romanValue[50];
-            convertToRoman(number, romanValue, sizeof(romanValue));
-            hashTableInsert(ht, key, romanValue);
-            cout << "Успешно! Добавлено: " << key << " -> " << romanValue << endl;
-        } else {
-            cout << "Хэш-таблица '" << tableName << "' не найдена" << endl;
+        if (!ht) { cout << "Хэш-таблица '" << tableName << "' не найдена" << endl; return; }
+
+        HashTable* romanHT = findHashTable("ROMAN_TABLE");
+        if (!romanHT) {
+            romanHT = createHashTable("ROMAN_TABLE", CHAINING, 16);
+            initRomanHashTable(romanHT);
         }
+
+        char romanValue[50];
+        convertToRomanUsingHashTable(romanHT, number, romanValue, sizeof(romanValue));
+        hashTableInsert(ht, key, romanValue);
+        cout << "Успешно! Добавлено: " << key << " -> " << romanValue << endl;
     }
     else {
         cout << "Неизвестная команда" << endl;

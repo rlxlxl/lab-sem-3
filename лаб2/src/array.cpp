@@ -197,6 +197,35 @@ void printArray(DynamicArray* arrays, int* arrayCount, const char* arrayName) {
     cout << "--------------------" << endl;
 }
 
+#include "set.h"   // используем твой HashSet
+
+void printAllSubarraysPowerset(DynamicArray* arr) {
+    int n = arr->size - 1; // минус имя массива
+    if (n <= 0) {
+        cout << "{}" << endl;
+        return;
+    }
+
+    int total = 1 << n;
+
+    cout << "Все подмассивы:" << endl;
+
+    for (int mask = 0; mask < total; mask++) {
+        cout << "{";
+
+        bool first = true;
+        for (int i = 0; i < n; i++) {
+            if (mask & (1 << i)) {
+                if (!first) cout << "|";
+                cout << arr->data[i + 1];
+                first = false;
+            }
+        }
+
+        cout << "}" << endl;
+    }
+}
+
 // Обработка команд для массивов
 void executeArrayCommand(DynamicArray* arrays, int* arrayCount, const char* command, const char* filename) {
     char cmd[50], arrayName[256], value[512];
@@ -272,6 +301,15 @@ void executeArrayCommand(DynamicArray* arrays, int* arrayCount, const char* comm
     else if (sscanf(command, "PRINT %255s", arrayName) == 1) {
         printArray(arrays, arrayCount, arrayName);
     }
+    //MPOW
+   else if (sscanf(command, "MPOW %255s", arrayName) == 1) {
+    DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+    if (!arr) {
+        cout << "Массив не найден" << endl;
+    } else {
+        printAllSubarraysPowerset(arr);
+    }
+}
     else {
         cout << "Неизвестная команда" << endl;
     }

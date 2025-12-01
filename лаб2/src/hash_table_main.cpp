@@ -1,4 +1,5 @@
 #include "hash_table.h"
+#include <cstring>
 #include <iostream>
 
 using namespace std;

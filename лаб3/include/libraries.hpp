@@ -1,0 +1,7 @@
+#include "hashtable.hpp"
+#include "stack.hpp"
+#include "queue.hpp"
+#include "doublylist.hpp"
+#include "array.hpp"
+#include "forwardlist.hpp"
+#include "fullbinarytree.hpp"

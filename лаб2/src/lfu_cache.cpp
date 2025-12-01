@@ -93,6 +93,7 @@ LFUNode* findNodeByKey(LFUCache* cache, const char* key) {
         LFUNode* current = currentFreq->head;
         while (current != nullptr) {
             if (strcmp(current->key, key) == 0) {
+                updateFrequency(cache, current);
                 return current;
             }
             current = current->next;

@@ -1,6 +1,5 @@
 #include "SystemWork.hpp"
 
-// Массивы и контейнеры
 Array<string> names_M = create_array_ar<string>(4);
 Array<Array<string>*> data_M = create_array_ar<Array<string>*>(4);
 
@@ -17,7 +16,6 @@ Array<string> names_S = create_array_ar<string>(4);
 Array<Stack<string>*> data_S = create_array_ar<Stack<string>*>(4);
 
 Array<string> names_T = create_array_ar<string>(4);
-Array<FullBinaryTree*> data_T = create_array_ar<FullBinaryTree*>(4);  // Изменено: FullBinaryTree* вместо FullBinaryTree<string>*
+Array<FullBinaryTree*> data_T = create_array_ar<FullBinaryTree*>(4);  
 
-// Путь к файлу
 string g_file_path;
