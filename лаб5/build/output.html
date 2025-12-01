@@ -1,0 +1,318 @@
+<pre><code>
+#<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>include</span> <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"array.h"</span>
+#<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>include</span> &lt;iostream&gt;
+#<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>include</span> &lt;cstdlib&gt;
+#<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>include</span> &lt;cstring&gt;
+#<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>include</span> &lt;cstdio&gt;
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>using</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>namespace</span> std;
+
+<span style="color:#ffaa00; font-weight:bold">#define</span> MAX_QUERY_LENGTH <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1024</span>
+
+<span style="color:#55aa55">// Инициализация динамического массива</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> initArray(DynamicArray* arr, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> initialCapacity) {
+    arr-&gt;data = (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>**)malloc(initialCapacity * sizeof(<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>*));
+    arr-&gt;capacity = initialCapacity;
+    arr-&gt;size = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>;
+}
+
+<span style="color:#55aa55">// Освобождение памяти массива</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> freeArray(DynamicArray* arr) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>; i &lt; arr-&gt;size; i++) {
+        free(arr-&gt;data[i]);  <span style="color:#55aa55">// Освобождаем каждую строку</span>
+    }
+    free(arr-&gt;data);         <span style="color:#55aa55">// Освобождаем массив указателей</span>
+    arr-&gt;data = nullptr;
+    arr-&gt;capacity = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>;
+    arr-&gt;size = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>;
+}
+
+<span style="color:#55aa55">// Увеличение размера массива при переполнении</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> resizeArray(DynamicArray* arr) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> newCapacity = arr-&gt;capacity * <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">2</span>;  <span style="color:#55aa55">// Удваиваем вместимость</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>** newData = (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>**)malloc(newCapacity * sizeof(<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>*));
+    
+    <span style="color:#55aa55">// Копируем старые данные</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>; i &lt; arr-&gt;size; i++) {
+        newData[i] = arr-&gt;data[i];
+    }
+    
+    free(arr-&gt;data);
+    arr-&gt;data = newData;
+    arr-&gt;capacity = newCapacity;
+}
+
+<span style="color:#55aa55">// Добавление элемента в конец</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> pushBack(DynamicArray* arr, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* value) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr-&gt;size &gt;= arr-&gt;capacity) {
+        resizeArray(arr);  <span style="color:#55aa55">// Автоматическое увеличение при необходимости</span>
+    }
+    
+    arr-&gt;data[arr-&gt;size] = (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>*)malloc(strlen(value) + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>);
+    strcpy(arr-&gt;data[arr-&gt;size], value);
+    arr-&gt;size++;
+}
+
+<span style="color:#55aa55">// Вставка элемента по индексу</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> insertAt(DynamicArray* arr, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> index, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* value) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (index &lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> || index &gt; arr-&gt;size) <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span>;
+    
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr-&gt;size &gt;= arr-&gt;capacity) {
+        resizeArray(arr);
+    }
+    
+    <span style="color:#55aa55">// Сдвиг элементов вправо для освобождения места</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = arr-&gt;size; i &gt; index; i--) {
+        arr-&gt;data[i] = arr-&gt;data[i - <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>];
+    }
+    
+    arr-&gt;data[index] = (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>*)malloc(strlen(value) + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>);
+    strcpy(arr-&gt;data[index], value);
+    arr-&gt;size++;
+}
+
+<span style="color:#55aa55">// Получение элемента по индексу</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* getAt(<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> DynamicArray* arr, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> index) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (index &lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> || index &gt;= arr-&gt;size) {
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span> nullptr;
+    }
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span> arr-&gt;data[index];
+}
+
+<span style="color:#55aa55">// Удаление элемента по индексу</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> removeAt(DynamicArray* arr, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> index) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (index &lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> || index &gt;= arr-&gt;size) <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span>;
+    
+    free(arr-&gt;data[index]);  <span style="color:#55aa55">// Освобождаем память строки</span>
+    
+    <span style="color:#55aa55">// Сдвиг элементов влево для заполнения пустоты</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = index; i &lt; arr-&gt;size - <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>; i++) {
+        arr-&gt;data[i] = arr-&gt;data[i + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>];
+    }
+    
+    arr-&gt;size--;
+}
+
+<span style="color:#55aa55">// Замена элемента по индексу</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> replaceAt(DynamicArray* arr, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> index, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* value) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (index &lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> || index &gt;= arr-&gt;size) <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span>;
+    
+    free(arr-&gt;data[index]);  <span style="color:#55aa55">// Освобождаем старую строку</span>
+    arr-&gt;data[index] = (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>*)malloc(strlen(value) + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>);
+    strcpy(arr-&gt;data[index], value);
+}
+
+<span style="color:#55aa55">// Получение текущего размера массива</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> getSize(<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> DynamicArray* arr) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span> arr-&gt;size;
+}
+
+<span style="color:#55aa55">// Поиск массива по имени</span>
+DynamicArray* findArrayByName(DynamicArray* arrays, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span>* arrayCount, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* name) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>; i &lt; *arrayCount; i++) {
+        <span style="color:#55aa55">// Первый элемент массива хранит его имя</span>
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arrays[i].size &gt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> &amp;&amp; strcmp(arrays[i].data[<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>], name) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>) {
+            <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span> &amp;arrays[i];
+        }
+    }
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span> nullptr;
+}
+
+<span style="color:#55aa55">// Создание нового массива</span>
+DynamicArray* createArray(DynamicArray* arrays, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span>* arrayCount, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* name) {
+    DynamicArray* newArray = &amp;arrays[*arrayCount];
+    initArray(newArray);
+    pushBack(newArray, name);  <span style="color:#55aa55">// Первый элемент - имя массива</span>
+    (*arrayCount)++;
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span> newArray;
+}
+
+<span style="color:#55aa55">// Сохранение массивов в файл</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> saveArraysToFile(<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* filename, DynamicArray* arrays, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> arrayCount) {
+    FILE* file = fopen(filename, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"w"</span>);
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (!file) {
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Не удалось открыть файл"</span> &lt;&lt; endl;
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span>;
+    }
+    
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>; i &lt; arrayCount; i++) {
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arrays[i].size &gt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>) {
+            fprintf(file, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"ARRAY %s\n"</span>, arrays[i].data[<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>]);  <span style="color:#55aa55">// Имя массива</span>
+            
+            <span style="color:#55aa55">// Данные массива (начиная с индекса <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>)</span>
+            <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> j = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>; j &lt; arrays[i].size; j++) {
+                fprintf(file, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"  DATA %s\n"</span>, arrays[i].data[j]);
+            }
+            fprintf(file, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"END_ARRAY\n"</span>);
+        }
+    }
+    
+    fclose(file);
+}
+
+<span style="color:#55aa55">// Загрузка массивов из файла</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> loadArraysFromFile(<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* filename, DynamicArray* arrays, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span>* arrayCount) {
+    FILE* file = fopen(filename, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"r"</span>);
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (!file) <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span>;
+    
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span> line[MAX_QUERY_LENGTH];
+    DynamicArray* currentArray = nullptr;
+    
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>while</span> (fgets(line, sizeof(line), file)) {
+        line[strcspn(line, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"\n"</span>)] = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>;  <span style="color:#55aa55">// Удаление символа новой строки</span>
+        
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (strncmp(line, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"ARRAY "</span>, <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">6</span>) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>) {
+            <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span> arrayName[<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">256</span>];
+            sscanf(line + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">6</span>, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"%255s"</span>, arrayName);
+            currentArray = createArray(arrays, arrayCount, arrayName);
+        } 
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (strncmp(line, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"  DATA "</span>, <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">7</span>) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> &amp;&amp; currentArray) {
+            pushBack(currentArray, line + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">7</span>);  <span style="color:#55aa55">// Добавляем данные в текущий массив</span>
+        }
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (strcmp(line, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"END_ARRAY"</span>) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>) {
+            currentArray = nullptr;  <span style="color:#55aa55">// Завершение текущего массива</span>
+        }
+    }
+    
+    fclose(file);
+}
+
+<span style="color:#55aa55">// Вывод содержимого массива</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> printArray(DynamicArray* arrays, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span>* arrayCount, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* arrayName) {
+    DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (!arr) {
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив '"</span> &lt;&lt; arrayName &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"' не найден"</span> &lt;&lt; endl;
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span>;
+    }
+    
+    cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив: "</span> &lt;&lt; arrayName &lt;&lt; endl;
+    cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Размер: "</span> &lt;&lt; arr-&gt;size - <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> &lt;&lt; endl;  <span style="color:#55aa55">// -<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> потому что первый элемент - имя</span>
+    cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Элементы:"</span> &lt;&lt; endl;
+    
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr-&gt;size == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>) {
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"  [пусто]"</span> &lt;&lt; endl;
+    } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>; i &lt; arr-&gt;size; i++) {
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"  ["</span> &lt;&lt; i - <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"] "</span> &lt;&lt; arr-&gt;data[i] &lt;&lt; endl;
+        }
+    }
+    cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"--------------------"</span> &lt;&lt; endl;
+}
+
+#<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>include</span> <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"set.h"</span>   <span style="color:#55aa55">// используем твой HashSet</span>
+
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> printAllSubarraysPowerset(DynamicArray* arr) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> n = arr-&gt;size - <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>; <span style="color:#55aa55">// минус имя массива</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (n &lt;= <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>) {
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"{}"</span> &lt;&lt; endl;
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>return</span>;
+    }
+
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> total = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> &lt;&lt; n;
+
+    cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Все подмассивы:"</span> &lt;&lt; endl;
+
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> mask = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>; mask &lt; total; mask++) {
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"{"</span>;
+
+        bool first = true;
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>for</span> (<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> i = <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span>; i &lt; n; i++) {
+            <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (mask &amp; (<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> &lt;&lt; i)) {
+                <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (!first) cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"|"</span>;
+                cout &lt;&lt; arr-&gt;data[i + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>];
+                first = false;
+            }
+        }
+
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"}"</span> &lt;&lt; endl;
+    }
+}
+
+<span style="color:#55aa55">// Обработка команд для массивов</span>
+<span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>void</span> executeArrayCommand(DynamicArray* arrays, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span>* arrayCount, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* command, <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* filename) {
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span> cmd[<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">50</span>], arrayName[<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">256</span>], value[<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">512</span>];
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>int</span> index;
+    
+    <span style="color:#55aa55">// MPUSH - добавление в конец массива</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"MPUSH %255s %<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">511</span>[^\n]"</span>, arrayName, value) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">2</span>) {
+        DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (!arr) {
+            arr = createArray(arrays, arrayCount, arrayName);
+        }
+        pushBack(arr, value);
+        saveArraysToFile(filename, arrays, *arrayCount);
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Успешно!"</span> &lt;&lt; endl;
+    }
+    <span style="color:#55aa55">// MINSERT - вставка по индексу</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"MINSERT %255s %d %<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">511</span>[^\n]"</span>, arrayName, &amp;index, value) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">3</span>) {
+        DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr) {
+            insertAt(arr, index + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>, value);  <span style="color:#55aa55">// +<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> потому что индекс <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> - имя массива</span>
+            saveArraysToFile(filename, arrays, *arrayCount);
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Успешно!"</span> &lt;&lt; endl;
+        } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив не найден"</span> &lt;&lt; endl;
+        }
+    }
+    <span style="color:#55aa55">// MGET - получение элемента по индексу</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"MGET %255s %d"</span>, arrayName, &amp;index) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">2</span>) {
+        DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr) {
+            <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>const</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>char</span>* result = getAt(arr, index + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>);  <span style="color:#55aa55">// +<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> потому что индекс <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">0</span> - имя</span>
+            <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (result) {
+                cout &lt;&lt; result &lt;&lt; endl;
+            } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+                cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Несуществующий индекс"</span> &lt;&lt; endl;
+            }
+        } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив не найден"</span> &lt;&lt; endl;
+        }
+    }
+    <span style="color:#55aa55">// MDEL - удаление элемента по индексу</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"MDEL %255s %d"</span>, arrayName, &amp;index) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">2</span>) {
+        DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr) {
+            removeAt(arr, index + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>);
+            saveArraysToFile(filename, arrays, *arrayCount);
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Успешно!"</span> &lt;&lt; endl;
+        } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив не найден"</span> &lt;&lt; endl;
+        }
+    }
+    <span style="color:#55aa55">// MREPLACE - замена элемента по индексу</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"MREPLACE %255s %d %<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">511</span>[^\n]"</span>, arrayName, &amp;index, value) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">3</span>) {
+        DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr) {
+            replaceAt(arr, index + <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>, value);
+            saveArraysToFile(filename, arrays, *arrayCount);
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Успешно!"</span> &lt;&lt; endl;
+        } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив не найден"</span> &lt;&lt; endl;
+        }
+    }
+    <span style="color:#55aa55">// MSIZE - получение размера массива</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"MSIZE %255s"</span>, arrayName) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>) {
+        DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+        <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (arr) {
+            cout &lt;&lt; getSize(arr) - <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> &lt;&lt; endl;  <span style="color:#55aa55">// -<span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span> потому что первый элемент - имя</span>
+        } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+            cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив не найден"</span> &lt;&lt; endl;
+        }
+    }
+    <span style="color:#55aa55">// PRINT - вывод массива</span>
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"PRINT %255s"</span>, arrayName) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>) {
+        printArray(arrays, arrayCount, arrayName);
+    }
+    <span style="color:#55aa55">//MPOW</span>
+   <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (sscanf(command, <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"MPOW %255s"</span>, arrayName) == <span style="color:<span style="color:#ffaa00; font-weight:bold">#aa</span>00aa">1</span>) {
+    DynamicArray* arr = findArrayByName(arrays, arrayCount, arrayName);
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>if</span> (!arr) {
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Массив не найден"</span> &lt;&lt; endl;
+    } <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+        printAllSubarraysPowerset(arr);
+    }
+}
+    <span style=<span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"color:#00aaff; font-weight:bold"</span>>else</span> {
+        cout &lt;&lt; <span style="color:<span style="color:#ffaa00; font-weight:bold">#ff</span>5500">"Неизвестная команда"</span> &lt;&lt; endl;
+    }
+}
+</code></pre>

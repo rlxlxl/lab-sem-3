@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/CodeToHtml.dir/src/BasicConverter.cpp.o CMakeFiles/CodeToHtml.dir/src/SyntaxHighlightDecorator.cpp.o CMakeFiles/CodeToHtml.dir/src/main.cpp.o -o CodeToHtml
