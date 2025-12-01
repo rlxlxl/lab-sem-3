@@ -1,3 +1,0 @@
-/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб5/build/CMakeFiles/CodeToHtml.dir
-/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб5/build/CMakeFiles/edit_cache.dir
-/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб5/build/CMakeFiles/rebuild_cache.dir
