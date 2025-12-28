@@ -1,6 +1,5 @@
 # Build directories
 build/
-build_coverage/
 build_*/
 
 # Coverage reports
