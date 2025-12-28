@@ -1,0 +1,344 @@
+Start testing: Dec 23 13:57 +07
+----------------------------------------------------------
+1/2 Testing: GoogleTests
+1/2 Test: GoogleTests
+Command: "/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/test_runner"
+Directory: /Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage
+"GoogleTests" start time: Dec 23 13:57 +07
+Output:
+----------------------------------------------------------
+Всего тестов зарегистрировано: 102
+[==========] Running 102 tests from 7 test suites.
+[----------] Global test environment set-up.
+[----------] 13 tests from ArrayTest
+[ RUN      ] ArrayTest.PushBackAndGet
+[       OK ] ArrayTest.PushBackAndGet (0 ms)
+[ RUN      ] ArrayTest.ConstructorWithCapacity
+[       OK ] ArrayTest.ConstructorWithCapacity (0 ms)
+[ RUN      ] ArrayTest.SetAndRemove
+Неправильное значение индекса
+[       OK ] ArrayTest.SetAndRemove (0 ms)
+[ RUN      ] ArrayTest.RemoveAtMaxIndex
+[       OK ] ArrayTest.RemoveAtMaxIndex (0 ms)
+[ RUN      ] ArrayTest.Change
+[       OK ] ArrayTest.Change (0 ms)
+[ RUN      ] ArrayTest.ResizeOnPushBack
+[       OK ] ArrayTest.ResizeOnPushBack (0 ms)
+[ RUN      ] ArrayTest.ResizeOnSet
+[       OK ] ArrayTest.ResizeOnSet (0 ms)
+[ RUN      ] ArrayTest.InvalidIndexGet
+Неправильное значение индекса
+Неправильное значение индекса
+[       OK ] ArrayTest.InvalidIndexGet (0 ms)
+[ RUN      ] ArrayTest.InvalidIndexSet
+Неправильное значение индекса
+Неправильное значение индекса
+[       OK ] ArrayTest.InvalidIndexSet (0 ms)
+[ RUN      ] ArrayTest.InvalidIndexChange
+Неправильное значение индекса
+Неправильное значение индекса
+[       OK ] ArrayTest.InvalidIndexChange (0 ms)
+[ RUN      ] ArrayTest.InvalidIndexRemove
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+[       OK ] ArrayTest.InvalidIndexRemove (0 ms)
+[ RUN      ] ArrayTest.PrintEmpty
+[       OK ] ArrayTest.PrintEmpty (0 ms)
+[ RUN      ] ArrayTest.PrintWithData
+[       OK ] ArrayTest.PrintWithData (0 ms)
+[----------] 13 tests from ArrayTest (0 ms total)
+
+[----------] 32 tests from DoublyListTest
+[ RUN      ] DoublyListTest.EmptyList
+[       OK ] DoublyListTest.EmptyList (0 ms)
+[ RUN      ] DoublyListTest.PushFrontAndBack
+[       OK ] DoublyListTest.PushFrontAndBack (0 ms)
+[ RUN      ] DoublyListTest.PushFrontOnly
+[       OK ] DoublyListTest.PushFrontOnly (0 ms)
+[ RUN      ] DoublyListTest.PushBackOnly
+[       OK ] DoublyListTest.PushBackOnly (0 ms)
+[ RUN      ] DoublyListTest.InsertBefore
+[       OK ] DoublyListTest.InsertBefore (0 ms)
+[ RUN      ] DoublyListTest.InsertBeforeHead
+[       OK ] DoublyListTest.InsertBeforeHead (0 ms)
+[ RUN      ] DoublyListTest.InsertAfter
+[       OK ] DoublyListTest.InsertAfter (0 ms)
+[ RUN      ] DoublyListTest.InsertAfterTail
+[       OK ] DoublyListTest.InsertAfterTail (0 ms)
+[ RUN      ] DoublyListTest.InsertBeforeInvalidNode
+Ошибка: узел не принадлежит списку
+[       OK ] DoublyListTest.InsertBeforeInvalidNode (0 ms)
+[ RUN      ] DoublyListTest.InsertAfterInvalidNode
+Ошибка: узел не принадлежит списку
+[       OK ] DoublyListTest.InsertAfterInvalidNode (0 ms)
+[ RUN      ] DoublyListTest.InsertBeforeNullNode
+Ошибка: null-узел
+[       OK ] DoublyListTest.InsertBeforeNullNode (0 ms)
+[ RUN      ] DoublyListTest.InsertAfterNullNode
+Ошибка: null-узел
+[       OK ] DoublyListTest.InsertAfterNullNode (0 ms)
+[ RUN      ] DoublyListTest.PopFront
+[       OK ] DoublyListTest.PopFront (0 ms)
+[ RUN      ] DoublyListTest.PopFrontLast
+[       OK ] DoublyListTest.PopFrontLast (0 ms)
+[ RUN      ] DoublyListTest.PopFrontEmpty
+Ошибка: список пуст
+[       OK ] DoublyListTest.PopFrontEmpty (0 ms)
+[ RUN      ] DoublyListTest.PopBack
+[       OK ] DoublyListTest.PopBack (0 ms)
+[ RUN      ] DoublyListTest.PopBackLast
+[       OK ] DoublyListTest.PopBackLast (0 ms)
+[ RUN      ] DoublyListTest.PopBackEmpty
+Ошибка: список пуст
+[       OK ] DoublyListTest.PopBackEmpty (0 ms)
+[ RUN      ] DoublyListTest.Erase
+Ошибка: узел не найден
+[       OK ] DoublyListTest.Erase (0 ms)
+[ RUN      ] DoublyListTest.EraseHead
+[       OK ] DoublyListTest.EraseHead (0 ms)
+[ RUN      ] DoublyListTest.EraseTail
+[       OK ] DoublyListTest.EraseTail (0 ms)
+[ RUN      ] DoublyListTest.EraseNull
+Ошибка: null-узел
+[       OK ] DoublyListTest.EraseNull (0 ms)
+[ RUN      ] DoublyListTest.EraseInvalidNode
+Ошибка: узел не принадлежит списку
+[       OK ] DoublyListTest.EraseInvalidNode (0 ms)
+[ RUN      ] DoublyListTest.DeleteValue
+OK
+Ошибка: узел не найден
+[       OK ] DoublyListTest.DeleteValue (0 ms)
+[ RUN      ] DoublyListTest.DeleteValueNotFound
+Ошибка: элемент не найден
+[       OK ] DoublyListTest.DeleteValueNotFound (0 ms)
+[ RUN      ] DoublyListTest.DeleteBeforeValue
+Ошибка: узел не найден
+[       OK ] DoublyListTest.DeleteBeforeValue (0 ms)
+[ RUN      ] DoublyListTest.DeleteBeforeValueFirst
+Ошибка: перед элементом ничего нет
+[       OK ] DoublyListTest.DeleteBeforeValueFirst (0 ms)
+[ RUN      ] DoublyListTest.DeleteAfterValue
+Ошибка: узел не найден
+[       OK ] DoublyListTest.DeleteAfterValue (0 ms)
+[ RUN      ] DoublyListTest.DeleteAfterValueLast
+Ошибка: после элемента ничего нет
+[       OK ] DoublyListTest.DeleteAfterValueLast (0 ms)
+[ RUN      ] DoublyListTest.Find
+Ошибка: узел не найден
+[       OK ] DoublyListTest.Find (0 ms)
+[ RUN      ] DoublyListTest.Print
+[       OK ] DoublyListTest.Print (0 ms)
+[ RUN      ] DoublyListTest.PrintEmpty
+[       OK ] DoublyListTest.PrintEmpty (0 ms)
+[----------] 32 tests from DoublyListTest (0 ms total)
+
+[----------] 27 tests from ForwardListTest
+[ RUN      ] ForwardListTest.PushAndFind
+[       OK ] ForwardListTest.PushAndFind (0 ms)
+[ RUN      ] ForwardListTest.PushFront
+[       OK ] ForwardListTest.PushFront (0 ms)
+[ RUN      ] ForwardListTest.PushBack
+[       OK ] ForwardListTest.PushBack (0 ms)
+[ RUN      ] ForwardListTest.InsertBefore
+[       OK ] ForwardListTest.InsertBefore (0 ms)
+[ RUN      ] ForwardListTest.InsertBeforeHead
+[       OK ] ForwardListTest.InsertBeforeHead (0 ms)
+[ RUN      ] ForwardListTest.InsertBeforeInvalid
+Ошибка: узел не найден
+[       OK ] ForwardListTest.InsertBeforeInvalid (0 ms)
+[ RUN      ] ForwardListTest.InsertBeforeNull
+Ошибка: передан нулевой указатель
+[       OK ] ForwardListTest.InsertBeforeNull (0 ms)
+[ RUN      ] ForwardListTest.InsertAfter
+[       OK ] ForwardListTest.InsertAfter (0 ms)
+[ RUN      ] ForwardListTest.InsertAfterNull
+Ошибка: передан нулевой указатель
+[       OK ] ForwardListTest.InsertAfterNull (0 ms)
+[ RUN      ] ForwardListTest.PopFront
+[       OK ] ForwardListTest.PopFront (0 ms)
+[ RUN      ] ForwardListTest.PopFrontEmpty
+[       OK ] ForwardListTest.PopFrontEmpty (0 ms)
+[ RUN      ] ForwardListTest.PopBack
+[       OK ] ForwardListTest.PopBack (0 ms)
+[ RUN      ] ForwardListTest.PopBackSingle
+[       OK ] ForwardListTest.PopBackSingle (0 ms)
+[ RUN      ] ForwardListTest.PopBackEmpty
+[       OK ] ForwardListTest.PopBackEmpty (0 ms)
+[ RUN      ] ForwardListTest.Erase
+[       OK ] ForwardListTest.Erase (0 ms)
+[ RUN      ] ForwardListTest.EraseHead
+[       OK ] ForwardListTest.EraseHead (0 ms)
+[ RUN      ] ForwardListTest.EraseNull
+[       OK ] ForwardListTest.EraseNull (0 ms)
+[ RUN      ] ForwardListTest.EraseByValue
+[       OK ] ForwardListTest.EraseByValue (0 ms)
+[ RUN      ] ForwardListTest.EraseByValueHead
+[       OK ] ForwardListTest.EraseByValueHead (0 ms)
+[ RUN      ] ForwardListTest.EraseBefore
+[       OK ] ForwardListTest.EraseBefore (0 ms)
+[ RUN      ] ForwardListTest.EraseBeforeHead
+[       OK ] ForwardListTest.EraseBeforeHead (0 ms)
+[ RUN      ] ForwardListTest.EraseAfter
+[       OK ] ForwardListTest.EraseAfter (0 ms)
+[ RUN      ] ForwardListTest.EraseAfterLast
+[       OK ] ForwardListTest.EraseAfterLast (0 ms)
+[ RUN      ] ForwardListTest.Clear
+[       OK ] ForwardListTest.Clear (0 ms)
+[ RUN      ] ForwardListTest.PrintWhile
+[       OK ] ForwardListTest.PrintWhile (0 ms)
+[ RUN      ] ForwardListTest.PrintFor
+[       OK ] ForwardListTest.PrintFor (0 ms)
+[ RUN      ] ForwardListTest.PrintEmpty
+[       OK ] ForwardListTest.PrintEmpty (0 ms)
+[----------] 27 tests from ForwardListTest (0 ms total)
+
+[----------] 7 tests from BSTTest
+[ RUN      ] BSTTest.EmptyTree
+[       OK ] BSTTest.EmptyTree (0 ms)
+[ RUN      ] BSTTest.InsertAndFind
+[       OK ] BSTTest.InsertAndFind (0 ms)
+[ RUN      ] BSTTest.InsertDuplicate
+[       OK ] BSTTest.InsertDuplicate (0 ms)
+[ RUN      ] BSTTest.InsertMany
+[       OK ] BSTTest.InsertMany (0 ms)
+[ RUN      ] BSTTest.FindNonExistent
+[       OK ] BSTTest.FindNonExistent (0 ms)
+[ RUN      ] BSTTest.PrintEmpty
+[       OK ] BSTTest.PrintEmpty (0 ms)
+[ RUN      ] BSTTest.PrintWithData
+[       OK ] BSTTest.PrintWithData (0 ms)
+[----------] 7 tests from BSTTest (0 ms total)
+
+[----------] 8 tests from HashTableTest
+[ RUN      ] HashTableTest.Constructor
+[       OK ] HashTableTest.Constructor (0 ms)
+[ RUN      ] HashTableTest.InsertFindRemove
+[       OK ] HashTableTest.InsertFindRemove (0 ms)
+[ RUN      ] HashTableTest.InsertUpdate
+[       OK ] HashTableTest.InsertUpdate (0 ms)
+[ RUN      ] HashTableTest.InsertMany
+[       OK ] HashTableTest.InsertMany (0 ms)
+[ RUN      ] HashTableTest.RemoveNonExistent
+Элемент с ключом nonexistent не найден
+[       OK ] HashTableTest.RemoveNonExistent (0 ms)
+[ RUN      ] HashTableTest.FindNonExistent
+[       OK ] HashTableTest.FindNonExistent (0 ms)
+[ RUN      ] HashTableTest.CollisionHandling
+[       OK ] HashTableTest.CollisionHandling (0 ms)
+[ RUN      ] HashTableTest.Print
+[       OK ] HashTableTest.Print (0 ms)
+[----------] 8 tests from HashTableTest (0 ms total)
+
+[----------] 7 tests from QueueTest
+[ RUN      ] QueueTest.EmptyQueue
+[       OK ] QueueTest.EmptyQueue (0 ms)
+[ RUN      ] QueueTest.PushPop
+[       OK ] QueueTest.PushPop (0 ms)
+[ RUN      ] QueueTest.PopEmpty
+Ошибка: очередь пуста
+[       OK ] QueueTest.PopEmpty (0 ms)
+[ RUN      ] QueueTest.Resize
+[       OK ] QueueTest.Resize (0 ms)
+[ RUN      ] QueueTest.CircularBehavior
+[       OK ] QueueTest.CircularBehavior (0 ms)
+[ RUN      ] QueueTest.Print
+[       OK ] QueueTest.Print (0 ms)
+[ RUN      ] QueueTest.PrintEmpty
+[       OK ] QueueTest.PrintEmpty (0 ms)
+[----------] 7 tests from QueueTest (0 ms total)
+
+[----------] 8 tests from StackTest
+[ RUN      ] StackTest.EmptyStack
+[       OK ] StackTest.EmptyStack (0 ms)
+[ RUN      ] StackTest.PushPopPeek
+[       OK ] StackTest.PushPopPeek (0 ms)
+[ RUN      ] StackTest.PopEmpty
+Ошибка: стек пуст
+[       OK ] StackTest.PopEmpty (0 ms)
+[ RUN      ] StackTest.PeekEmpty
+Ошибка: стек пуст
+[       OK ] StackTest.PeekEmpty (0 ms)
+[ RUN      ] StackTest.CopyFrom
+[       OK ] StackTest.CopyFrom (0 ms)
+[ RUN      ] StackTest.CopyFromEmpty
+[       OK ] StackTest.CopyFromEmpty (0 ms)
+[ RUN      ] StackTest.Clear
+[       OK ] StackTest.Clear (0 ms)
+[ RUN      ] StackTest.Print
+[       OK ] StackTest.Print (0 ms)
+[----------] 8 tests from StackTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 102 tests from 7 test suites ran. (0 ms total)
+[  PASSED  ] 102 tests.
+<end of output>
+Test time =   0.47 sec
+----------------------------------------------------------
+Test Passed.
+"GoogleTests" end time: Dec 23 13:57 +07
+"GoogleTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: BoostTests
+2/2 Test: BoostTests
+Command: "/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/boost_test_runner"
+Directory: /Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage
+"BoostTests" start time: Dec 23 13:57 +07
+Output:
+----------------------------------------------------------
+Running 51 test cases...
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+Неправильное значение индекса
+OK
+OK
+OK
+OK
+OK
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+Ошибка: узел не найден
+
+[1;32;49m*** No errors detected
+[0;39;49m
+<end of output>
+Test time =   0.51 sec
+----------------------------------------------------------
+Test Passed.
+"BoostTests" end time: Dec 23 13:57 +07
+"BoostTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Dec 23 13:57 +07

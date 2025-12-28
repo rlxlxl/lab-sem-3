@@ -1,0 +1,7 @@
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/CMakeFiles/prog.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/CMakeFiles/test_runner.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/CMakeFiles/boost_test_runner.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/CMakeFiles/benchmark_runner.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/CMakeFiles/test.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/CMakeFiles/edit_cache.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build_coverage/CMakeFiles/rebuild_cache.dir
