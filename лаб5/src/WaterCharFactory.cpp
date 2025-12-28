@@ -12,6 +12,6 @@ std::unique_ptr<Character> WaterCharFactory::createMage() const {
 }
 
 std::unique_ptr<Character> WaterCharFactory::createArcher() const {
-    std::vector<std::string> traits = {"Стреляет под водой", "Легкий"};
+    std::vector<std::string> traits = {"Стреляет под водой"};
     return std::make_unique<Archer>("Water", 90, traits);
 }

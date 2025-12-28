@@ -1,23 +1,57 @@
 #include "EarthCharFactory.h"
 #include "WaterCharFactory.h"
-#include <vector>
+#include <iostream>
 #include <memory>
 
 int main() {
-    std::vector<std::unique_ptr<CharacterFactory>> factories;
-    factories.push_back(std::make_unique<EarthCharFactory>());
-    factories.push_back(std::make_unique<WaterCharFactory>());
+    std::unique_ptr<CharacterFactory> factory;
 
-    for (const auto& factory : factories) {
-        auto warrior = factory->createWarrior();
-        auto mage = factory->createMage();
-        auto archer = factory->createArcher(); // создаем лучника
+    int factionChoice;
+    std::cout << "Выберите стихию:\n";
+    std::cout << "1 — Earth\n";
+    std::cout << "2 — Water\n";
+    std::cout << "Ввод: ";
+    std::cin >> factionChoice;
 
-        warrior->info();
-        mage->info();
-        archer->info();
-        std::cout << "----------------------\n";
+    switch (factionChoice) {
+        case 1:
+            factory = std::make_unique<EarthCharFactory>();
+            break;
+        case 2:
+            factory = std::make_unique<WaterCharFactory>();
+            break;
+        default:
+            std::cout << "Ошибка: неизвестная стихия!\n";
+            return 0;
     }
+
+    int charChoice;
+    std::cout << "\nВыберите тип персонажа:\n";
+    std::cout << "1 — Warrior\n";
+    std::cout << "2 — Mage\n";
+    std::cout << "3 — Archer\n";
+    std::cout << "Ввод: ";
+    std::cin >> charChoice;
+
+    std::unique_ptr<Character> character;
+
+    switch (charChoice) {
+        case 1:
+            character = factory->createWarrior();
+            break;
+        case 2:
+            character = factory->createMage();
+            break;
+        case 3:
+            character = factory->createArcher();
+            break;
+        default:
+            std::cout << "Ошибка: неизвестный тип персонажа!\n";
+            return 0;
+    }
+
+    std::cout << "\nСоздан персонаж:\n";
+    character->info();
 
     return 0;
 }

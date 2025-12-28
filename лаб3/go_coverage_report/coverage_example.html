@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Go Coverage Report</title>
+<style>
+body {
+	background: black;
+	color: rgb(80, 80, 80);
+}
+body, pre, #legend span {
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 12px;
+}
+#topbar {
+	background: black;
+	border-bottom: 1px solid rgb(80, 80, 80);
+	text-align: center;
+}
+#nav {
+	float: left;
+	margin: 4px;
+}
+#legend {
+	float: right;
+	margin: 0 4px;
+}
+#content {
+	background: white;
+}
+#bottom {
+	text-align: center;
+	font-size: 12px;
+	color: rgb(80, 80, 80);
+}
+#nav a {
+	text-decoration: none;
+	color: rgb(170, 170, 170);
+}
+#nav a:hover {
+	text-decoration: underline;
+}
+#legend .low {
+	opacity: 0.25;
+}
+#legend .med {
+	opacity: 0.50;
+}
+#legend .high {
+	opacity: 0.75;
+}
+#legend .empty {
+	opacity: 0.10;
+}
+.cover-fill, .cover-empty {
+	display: inline-block;
+	height: 12px;
+}
+.cover-empty {
+	background: white;
+}
+.cover-fill {
+	background: rgb(0, 128, 0);
+}
+.cover-partial {
+	background: linear-gradient(to right, rgb(0, 128, 0) 0%, rgb(0, 128, 0) 50%, white 50%, white 100%);
+}
+pre {
+	line-height: 1.2em;
+}
+pre .n {
+	color: rgb(0, 0, 0);
+}
+pre .c {
+	color: rgb(128, 128, 128);
+}
+pre .k {
+	color: rgb(0, 0, 255);
+}
+pre .s {
+	color: rgb(0, 128, 0);
+}
+pre .t {
+	color: rgb(128, 0, 128);
+}
+pre .p {
+	color: rgb(128, 0, 128);
+}
+pre .i {
+	color: rgb(0, 0, 0);
+}
+pre .cover {
+	color: rgb(0, 0, 0);
+}
+pre .cover .cover-fill {
+	background: rgb(0, 128, 0);
+	color: rgb(0, 0, 0);
+}
+pre .cover .cover-empty {
+	background: rgb(255, 0, 0);
+	color: rgb(0, 0, 0);
+}
+pre .cover .cover-partial {
+	background: linear-gradient(to right, rgb(255, 200, 0) 0%, rgb(255, 200, 0) 50%, rgb(255, 0, 0) 50%, rgb(255, 0, 0) 100%);
+}
+pre .cover .cover-closed {
+	background: rgb(255, 0, 0);
+}
+</style>
+</head>
+<body>
+<div id="topbar">
+	<div id="nav">
+		<a href="#0">calculator.go</a>
+	</div>
+	<div id="legend">
+		<span>not tracked</span>
+		<span class="low">not covered</span>
+		<span class="med">partial</span>
+		<span class="high">covered</span>
+	</div>
+</div>
+<div id="content">
+<pre id="0" style="display: block;">
+<span class="k">package</span> <span class="n">main</span>
+
+<span class="c">// Calculator представляет простой калькулятор</span>
+<span class="k">type</span> <span class="n">Calculator</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">result</span> <span class="k">float64</span>
+<span class="p">}</span>
+
+<span class="c">// NewCalculator создает новый экземпляр калькулятора</span>
+<span class="k">func</span> <span class="n">NewCalculator</span><span class="p">()</span> <span class="p">*</span><span class="n">Calculator</span> <span class="p">{</span>
+<span class="cover cover-fill">	return &amp;Calculator{result: 0}</span>
+<span class="p">}</span>
+
+<span class="c">// Add добавляет значение к результату</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">Add</span><span class="p">(</span><span class="n">value</span> <span class="k">float64</span><span class="p">)</span> <span class="p">{</span>
+<span class="cover cover-fill">	c.result += value</span>
+<span class="p">}</span>
+
+<span class="c">// Subtract вычитает значение из результата</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">Subtract</span><span class="p">(</span><span class="n">value</span> <span class="k">float64</span><span class="p">)</span> <span class="p">{</span>
+<span class="cover cover-fill">	c.result -= value</span>
+<span class="p">}</span>
+
+<span class="c">// Multiply умножает результат на значение</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">Multiply</span><span class="p">(</span><span class="n">value</span> <span class="k">float64</span><span class="p">)</span> <span class="p">{</span>
+<span class="cover cover-fill">	c.result *= value</span>
+<span class="p">}</span>
+
+<span class="c">// Divide делит результат на значение</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">Divide</span><span class="p">(</span><span class="n">value</span> <span class="k">float64</span><span class="p">)</span> <span class="k">error</span> <span class="p">{</span>
+<span class="cover cover-fill">	if value == 0 {</span>
+<span class="cover cover-fill">		return ErrDivisionByZero</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	c.result /= value</span>
+<span class="cover cover-fill">	return nil</span>
+<span class="p">}</span>
+
+<span class="c">// GetResult возвращает текущий результат</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">GetResult</span><span class="p">()</span> <span class="k">float64</span> <span class="p">{</span>
+<span class="cover cover-fill">	return c.result</span>
+<span class="p">}</span>
+
+<span class="c">// Reset сбрасывает результат в ноль</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">Reset</span><span class="p">()</span> <span class="p">{</span>
+<span class="cover cover-fill">	c.result = 0</span>
+<span class="p">}</span>
+
+<span class="c">// Power возводит результат в степень</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">Power</span><span class="p">(</span><span class="n">exponent</span> <span class="k">float64</span><span class="p">)</span> <span class="p">{</span>
+<span class="cover cover-fill">	if c.result == 0 &amp;&amp; exponent &lt; 0 {</span>
+<span class="cover cover-fill">		c.result = 0</span>
+<span class="cover cover-fill">		return</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	</span>
+<span class="cover cover-fill">	result := 1.0</span>
+<span class="cover cover-fill">	absExp := exponent</span>
+<span class="cover cover-fill">	if exponent &lt; 0 {</span>
+<span class="cover cover-fill">		absExp = -exponent</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	</span>
+<span class="cover cover-fill">	for i := 0; i &lt; int(absExp); i++ {</span>
+<span class="cover cover-fill">		result *= c.result</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	</span>
+<span class="cover cover-fill">	if exponent &lt; 0 {</span>
+<span class="cover cover-fill">		c.result = 1.0 / result</span>
+<span class="cover cover-fill">	} else {</span>
+<span class="cover cover-fill">		c.result = result</span>
+<span class="cover cover-fill">	}</span>
+<span class="p">}</span>
+
+<span class="c">// Abs возвращает абсолютное значение результата</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="p">*</span><span class="n">Calculator</span><span class="p">)</span> <span class="n">Abs</span><span class="p">()</span> <span class="p">{</span>
+<span class="cover cover-fill">	if c.result &lt; 0 {</span>
+<span class="cover cover-fill">		c.result = -c.result</span>
+<span class="cover cover-fill">	}</span>
+<span class="p">}</span>
+
+<span class="c">// MathUtils содержит утилитные математические функции</span>
+<span class="k">type</span> <span class="n">MathUtils</span> <span class="k">struct</span><span class="p">{}</span>
+
+<span class="c">// Factorial вычисляет факториал числа</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">m</span> <span class="p">*</span><span class="n">MathUtils</span><span class="p">)</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span> <span class="k">int</span><span class="p">)</span> <span class="p">(</span><span class="k">int</span><span class="p">,</span> <span class="k">error</span><span class="p">)</span> <span class="p">{</span>
+<span class="cover cover-fill">	if n &lt; 0 {</span>
+<span class="cover cover-fill">		return 0, ErrNegativeNumber</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	if n == 0 || n == 1 {</span>
+<span class="cover cover-fill">		return 1, nil</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	</span>
+<span class="cover cover-fill">	result := 1</span>
+<span class="cover cover-fill">	for i := 2; i &lt;= n; i++ {</span>
+<span class="cover cover-fill">		result *= i</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	return result, nil</span>
+<span class="p">}</span>
+
+<span class="c">// IsPrime проверяет, является ли число простым</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">m</span> <span class="p">*</span><span class="n">MathUtils</span><span class="p">)</span> <span class="n">IsPrime</span><span class="p">(</span><span class="n">n</span> <span class="k">int</span><span class="p">)</span> <span class="k">bool</span> <span class="p">{</span>
+<span class="cover cover-fill">	if n &lt; 2 {</span>
+<span class="cover cover-fill">		return false</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	if n == 2 {</span>
+<span class="cover cover-fill">		return true</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	if n%2 == 0 {</span>
+<span class="cover cover-fill">		return false</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	</span>
+<span class="cover cover-fill">	for i := 3; i*i &lt;= n; i += 2 {</span>
+<span class="cover cover-fill">		if n%i == 0 {</span>
+<span class="cover cover-fill">			return false</span>
+<span class="cover cover-fill">		}</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	return true</span>
+<span class="p">}</span>
+
+<span class="c">// GCD вычисляет наибольший общий делитель</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">m</span> <span class="p">*</span><span class="n">MathUtils</span><span class="p">)</span> <span class="n">GCD</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="k">int</span><span class="p">)</span> <span class="k">int</span> <span class="p">{</span>
+<span class="cover cover-fill">	for b != 0 {</span>
+<span class="cover cover-fill">		a, b = b, a%b</span>
+<span class="cover cover-fill">	}</span>
+<span class="cover cover-fill">	return a</span>
+<span class="p">}</span>
+
+<span class="c">// Errors</span>
+<span class="k">var</span> <span class="p">(</span>
+	<span class="n">ErrDivisionByZero</span> <span class="p">=</span> <span class="p">&amp;</span><span class="n">MathError</span><span class="p">{</span><span class="n">Message</span><span class="p">:</span> <span class="s">"division by zero"</span><span class="p">}</span>
+	<span class="n">ErrNegativeNumber</span> <span class="p">=</span> <span class="p">&amp;</span><span class="n">MathError</span><span class="p">{</span><span class="n">Message</span><span class="p">:</span> <span class="s">"negative number not allowed"</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c">// MathError представляет ошибку математической операции</span>
+<span class="k">type</span> <span class="n">MathError</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">Message</span> <span class="k">string</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">e</span> <span class="p">*</span><span class="n">MathError</span><span class="p">)</span> <span class="n">Error</span><span class="p">()</span> <span class="k">string</span> <span class="p">{</span>
+<span class="cover cover-fill">	return e.Message</span>
+<span class="p">}</span>
+</pre>
+</div>
+<div id="bottom">
+	generated by <a href="https://golang.org/cmd/cover">go tool cover</a>
+</div>
+</body>
+</html>
+
