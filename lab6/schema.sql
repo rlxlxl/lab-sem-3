@@ -1,74 +1,93 @@
--- Схема БД для простой системы библиотеки
--- Тема: библиотека (книги, авторы, читатели, выдачи, жанры)
+-- Схема БД для системы туристического агентства
+-- Тема: туристическое агентство (клиенты, туры, отели, бронирования, платежи)
 
-DROP TABLE IF EXISTS borrowings CASCADE;
-DROP TABLE IF EXISTS books CASCADE;
-DROP TABLE IF EXISTS authors CASCADE;
-DROP TABLE IF EXISTS genres CASCADE;
-DROP TABLE IF EXISTS readers CASCADE;
+DROP TABLE IF EXISTS payments CASCADE;
+DROP TABLE IF EXISTS bookings CASCADE;
+DROP TABLE IF EXISTS tours CASCADE;
+DROP TABLE IF EXISTS hotels CASCADE;
+DROP TABLE IF EXISTS clients CASCADE;
 
--- 1. Авторы
-CREATE TABLE authors (
-    author_id SERIAL PRIMARY KEY,
-    name      TEXT NOT NULL
+-- 1. Клиенты
+CREATE TABLE clients (
+    client_id   SERIAL PRIMARY KEY,
+    full_name   TEXT NOT NULL,
+    email       TEXT UNIQUE,
+    phone       TEXT,
+    passport    TEXT
 );
 
--- 2. Жанры
-CREATE TABLE genres (
-    genre_id SERIAL PRIMARY KEY,
-    name     TEXT NOT NULL UNIQUE
+-- 2. Отели
+CREATE TABLE hotels (
+    hotel_id    SERIAL PRIMARY KEY,
+    name        TEXT NOT NULL,
+    country     TEXT NOT NULL,
+    city        TEXT NOT NULL,
+    stars       INT  CHECK (stars >= 1 AND stars <= 5),
+    address     TEXT
 );
 
--- 3. Книги
-CREATE TABLE books (
-    book_id     SERIAL PRIMARY KEY,
+-- 3. Туры
+CREATE TABLE tours (
+    tour_id     SERIAL PRIMARY KEY,
     title       TEXT NOT NULL,
-    author_id   INT  NOT NULL REFERENCES authors(author_id) ON DELETE CASCADE,
-    genre_id    INT  NOT NULL REFERENCES genres(genre_id)  ON DELETE SET NULL,
-    total_copies INT NOT NULL CHECK (total_copies >= 0)
+    hotel_id    INT  NOT NULL REFERENCES hotels(hotel_id) ON DELETE CASCADE,
+    duration    INT  NOT NULL CHECK (duration > 0),
+    price       DECIMAL(10, 2) NOT NULL CHECK (price >= 0),
+    start_date  DATE,
+    description TEXT
 );
 
--- 4. Читатели
-CREATE TABLE readers (
-    reader_id SERIAL PRIMARY KEY,
-    full_name TEXT NOT NULL,
-    email     TEXT UNIQUE
+-- 4. Бронирования
+CREATE TABLE bookings (
+    booking_id  SERIAL PRIMARY KEY,
+    client_id   INT  NOT NULL REFERENCES clients(client_id) ON DELETE CASCADE,
+    tour_id     INT  NOT NULL REFERENCES tours(tour_id)     ON DELETE CASCADE,
+    booking_date DATE NOT NULL,
+    status      TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled', 'completed'))
 );
 
--- 5. Выдачи книг
-CREATE TABLE borrowings (
-    borrowing_id SERIAL PRIMARY KEY,
-    reader_id    INT NOT NULL REFERENCES readers(reader_id) ON DELETE CASCADE,
-    book_id      INT NOT NULL REFERENCES books(book_id)     ON DELETE CASCADE,
-    borrow_date  DATE NOT NULL,
-    return_date  DATE
+-- 5. Платежи
+CREATE TABLE payments (
+    payment_id  SERIAL PRIMARY KEY,
+    booking_id  INT  NOT NULL REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    amount      DECIMAL(10, 2) NOT NULL CHECK (amount >= 0),
+    payment_date DATE NOT NULL,
+    payment_method TEXT CHECK (payment_method IN ('cash', 'card', 'bank_transfer', 'online'))
 );
 
--- Простейшие начальные данные
-INSERT INTO authors (name) VALUES
-('Фёдор Достоевский'),
-('Лев Толстой'),
-('Александр Пушкин');
+-- Начальные данные
 
-INSERT INTO genres (name) VALUES
-('Роман'),
-('Поэзия'),
-('Повесть');
+INSERT INTO clients (full_name, email, phone, passport) VALUES
+('Иван Иванов', 'ivan@example.com', '+7-900-123-45-67', '1234 567890'),
+('Пётр Петров', 'petr@example.com', '+7-900-234-56-78', '2345 678901'),
+('Мария Смирнова', 'maria@example.com', '+7-900-345-67-89', '3456 789012'),
+('Анна Козлова', 'anna@example.com', '+7-900-456-78-90', '4567 890123');
 
-INSERT INTO readers (full_name, email) VALUES
-('Иван Иванов',  'ivan@example.com'),
-('Пётр Петров',  'petr@example.com'),
-('Мария Смирнова', 'maria@example.com');
+INSERT INTO hotels (name, country, city, stars, address) VALUES
+('Гранд Отель Европа', 'Россия', 'Санкт-Петербург', 5, 'Михайловская ул., 1/7'),
+('Морской бриз', 'Турция', 'Анталия', 4, 'Konyaalti Beach, 07070'),
+('Пальмовый рай', 'ОАЭ', 'Дубай', 5, 'Palm Jumeirah, Jumeirah'),
+('Альпийская долина', 'Австрия', 'Инсбрук', 4, 'Höhenstraße 1, 6020'),
+('Тропическая лагуна', 'Таиланд', 'Пхукет', 5, 'Patong Beach Road');
 
-INSERT INTO books (title, author_id, genre_id, total_copies) VALUES
-('Преступление и наказание', 1, 1, 5),
-('Война и мир',               2, 1, 3),
-('Евгений Онегин',            3, 2, 4);
+INSERT INTO tours (title, hotel_id, duration, price, start_date, description) VALUES
+('Экскурсионный тур по Санкт-Петербургу', 1, 5, 45000.00, '2025-06-01', 'Обзорные экскурсии по историческому центру'),
+('Отдых на пляжах Анталии', 2, 7, 75000.00, '2025-07-15', 'Пляжный отдых с питанием all inclusive'),
+('Роскошный отдых в Дубае', 3, 10, 180000.00, '2025-08-01', 'Премиум отдых с экскурсиями'),
+('Горнолыжный курорт в Альпах', 4, 6, 95000.00, '2025-12-20', 'Катание на лыжах в Австрийских Альпах'),
+('Тропический рай на Пхукете', 5, 14, 120000.00, '2025-09-10', 'Пляжный отдых на острове');
 
-INSERT INTO borrowings (reader_id, book_id, borrow_date, return_date) VALUES
-(1, 1, '2025-01-10', '2025-01-20'),
-(2, 1, '2025-02-01', NULL),
-(3, 2, '2025-03-05', NULL),
-(1, 3, '2025-03-10', '2025-03-25');
+INSERT INTO bookings (client_id, tour_id, booking_date, status) VALUES
+(1, 1, '2025-04-10', 'confirmed'),
+(2, 2, '2025-05-15', 'confirmed'),
+(3, 3, '2025-06-01', 'pending'),
+(1, 4, '2025-05-20', 'confirmed'),
+(4, 5, '2025-07-05', 'confirmed'),
+(2, 3, '2025-06-10', 'cancelled');
 
-
+INSERT INTO payments (booking_id, amount, payment_date, payment_method) VALUES
+(1, 45000.00, '2025-04-10', 'card'),
+(2, 75000.00, '2025-05-15', 'bank_transfer'),
+(4, 95000.00, '2025-05-20', 'card'),
+(5, 120000.00, '2025-07-05', 'online'),
+(2, 25000.00, '2025-05-16', 'cash');
