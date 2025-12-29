@@ -1,0 +1,9 @@
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/prog.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/serialization_demo.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/test_runner.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/serialization_test_runner.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/boost_test_runner.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/benchmark_runner.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/test.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/edit_cache.dir
+/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,5 @@
+if(EXISTS "/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/test_runner[1]_tests.cmake")
+  include("/Users/slavavikentev/Desktop/учеба/семестр 3/прога/lab-sem-3/лаб3/build/test_runner[1]_tests.cmake")
+else()
+  add_test(test_runner_NOT_BUILT test_runner_NOT_BUILT)
+endif()

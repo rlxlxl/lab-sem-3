@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -L/opt/homebrew/lib CMakeFiles/benchmark_runner.dir/tests/benchmark.cpp.o -o benchmark_runner  /opt/homebrew/lib/libbenchmark.a /opt/homebrew/lib/libbenchmark_main.a /opt/homebrew/lib/libbenchmark.a

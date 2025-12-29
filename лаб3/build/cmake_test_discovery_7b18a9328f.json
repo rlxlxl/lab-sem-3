@@ -1,0 +1,558 @@
+{
+  "tests": 102,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "ArrayTest",
+      "tests": 13,
+      "testsuite": [
+        {
+          "name": "PushBackAndGet",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 7
+        },
+        {
+          "name": "ConstructorWithCapacity",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 15
+        },
+        {
+          "name": "SetAndRemove",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 21
+        },
+        {
+          "name": "RemoveAtMaxIndex",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 29
+        },
+        {
+          "name": "Change",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 39
+        },
+        {
+          "name": "ResizeOnPushBack",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 46
+        },
+        {
+          "name": "ResizeOnSet",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 54
+        },
+        {
+          "name": "InvalidIndexGet",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 60
+        },
+        {
+          "name": "InvalidIndexSet",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 67
+        },
+        {
+          "name": "InvalidIndexChange",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 73
+        },
+        {
+          "name": "InvalidIndexRemove",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 80
+        },
+        {
+          "name": "PrintEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 89
+        },
+        {
+          "name": "PrintWithData",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 98
+        }
+      ]
+    },
+    {
+      "name": "DoublyListTest",
+      "tests": 32,
+      "testsuite": [
+        {
+          "name": "EmptyList",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 110
+        },
+        {
+          "name": "PushFrontAndBack",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 116
+        },
+        {
+          "name": "PushFrontOnly",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 124
+        },
+        {
+          "name": "PushBackOnly",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 132
+        },
+        {
+          "name": "InsertBefore",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 140
+        },
+        {
+          "name": "InsertBeforeHead",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 149
+        },
+        {
+          "name": "InsertAfter",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 157
+        },
+        {
+          "name": "InsertAfterTail",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 166
+        },
+        {
+          "name": "InsertBeforeInvalidNode",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 174
+        },
+        {
+          "name": "InsertAfterInvalidNode",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 183
+        },
+        {
+          "name": "InsertBeforeNullNode",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 192
+        },
+        {
+          "name": "InsertAfterNullNode",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 197
+        },
+        {
+          "name": "PopFront",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 202
+        },
+        {
+          "name": "PopFrontLast",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 210
+        },
+        {
+          "name": "PopFrontEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 218
+        },
+        {
+          "name": "PopBack",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 223
+        },
+        {
+          "name": "PopBackLast",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 231
+        },
+        {
+          "name": "PopBackEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 239
+        },
+        {
+          "name": "Erase",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 244
+        },
+        {
+          "name": "EraseHead",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 254
+        },
+        {
+          "name": "EraseTail",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 263
+        },
+        {
+          "name": "EraseNull",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 272
+        },
+        {
+          "name": "EraseInvalidNode",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 277
+        },
+        {
+          "name": "DeleteValue",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 286
+        },
+        {
+          "name": "DeleteValueNotFound",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 297
+        },
+        {
+          "name": "DeleteBeforeValue",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 303
+        },
+        {
+          "name": "DeleteBeforeValueFirst",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 312
+        },
+        {
+          "name": "DeleteAfterValue",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 318
+        },
+        {
+          "name": "DeleteAfterValueLast",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 327
+        },
+        {
+          "name": "Find",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 333
+        },
+        {
+          "name": "Print",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 342
+        },
+        {
+          "name": "PrintEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 353
+        }
+      ]
+    },
+    {
+      "name": "ForwardListTest",
+      "tests": 27,
+      "testsuite": [
+        {
+          "name": "PushAndFind",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 363
+        },
+        {
+          "name": "PushFront",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 372
+        },
+        {
+          "name": "PushBack",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 379
+        },
+        {
+          "name": "InsertBefore",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 388
+        },
+        {
+          "name": "InsertBeforeHead",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 397
+        },
+        {
+          "name": "InsertBeforeInvalid",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 405
+        },
+        {
+          "name": "InsertBeforeNull",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 414
+        },
+        {
+          "name": "InsertAfter",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 419
+        },
+        {
+          "name": "InsertAfterNull",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 428
+        },
+        {
+          "name": "PopFront",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 433
+        },
+        {
+          "name": "PopFrontEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 441
+        },
+        {
+          "name": "PopBack",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 446
+        },
+        {
+          "name": "PopBackSingle",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 454
+        },
+        {
+          "name": "PopBackEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 461
+        },
+        {
+          "name": "Erase",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 466
+        },
+        {
+          "name": "EraseHead",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 476
+        },
+        {
+          "name": "EraseNull",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 485
+        },
+        {
+          "name": "EraseByValue",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 490
+        },
+        {
+          "name": "EraseByValueHead",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 499
+        },
+        {
+          "name": "EraseBefore",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 506
+        },
+        {
+          "name": "EraseBeforeHead",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 516
+        },
+        {
+          "name": "EraseAfter",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 523
+        },
+        {
+          "name": "EraseAfterLast",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 533
+        },
+        {
+          "name": "Clear",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 540
+        },
+        {
+          "name": "PrintWhile",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 548
+        },
+        {
+          "name": "PrintFor",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 559
+        },
+        {
+          "name": "PrintEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 570
+        }
+      ]
+    },
+    {
+      "name": "BSTTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "EmptyTree",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 580
+        },
+        {
+          "name": "InsertAndFind",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 585
+        },
+        {
+          "name": "InsertDuplicate",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 596
+        },
+        {
+          "name": "InsertMany",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 603
+        },
+        {
+          "name": "FindNonExistent",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 613
+        },
+        {
+          "name": "PrintEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 620
+        },
+        {
+          "name": "PrintWithData",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 629
+        }
+      ]
+    },
+    {
+      "name": "HashTableTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "Constructor",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 642
+        },
+        {
+          "name": "InsertFindRemove",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 648
+        },
+        {
+          "name": "InsertUpdate",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 659
+        },
+        {
+          "name": "InsertMany",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 668
+        },
+        {
+          "name": "RemoveNonExistent",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 676
+        },
+        {
+          "name": "FindNonExistent",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 681
+        },
+        {
+          "name": "CollisionHandling",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 687
+        },
+        {
+          "name": "Print",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 699
+        }
+      ]
+    },
+    {
+      "name": "QueueTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "EmptyQueue",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 711
+        },
+        {
+          "name": "PushPop",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 717
+        },
+        {
+          "name": "PopEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 726
+        },
+        {
+          "name": "Resize",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 732
+        },
+        {
+          "name": "CircularBehavior",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 742
+        },
+        {
+          "name": "Print",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 752
+        },
+        {
+          "name": "PrintEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 763
+        }
+      ]
+    },
+    {
+      "name": "StackTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "EmptyStack",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 773
+        },
+        {
+          "name": "PushPopPeek",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 779
+        },
+        {
+          "name": "PopEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 789
+        },
+        {
+          "name": "PeekEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 795
+        },
+        {
+          "name": "CopyFrom",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 801
+        },
+        {
+          "name": "CopyFromEmpty",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 812
+        },
+        {
+          "name": "Clear",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 820
+        },
+        {
+          "name": "Print",
+          "file": "\/Users\/slavavikentev\/Desktop\/\u00D1\u0083\u00D1\u0087\u00D0\u00B5\u00D0\u00B1\u00D0\u00B0\/\u00D1\u0081\u00D0\u00B5\u00D0\u00BC\u00D0\u00B5\u00D1\u0081\u00D1\u0082\u00D1\u0080 3\/\u00D0\u00BF\u00D1\u0080\u00D0\u00BE\u00D0\u00B3\u00D0\u00B0\/lab-sem-3\/\u00D0\u00BB\u00D0\u00B0\u00D0\u00B13\/tests\/googletest.cpp",
+          "line": 829
+        }
+      ]
+    }
+  ]
+}
